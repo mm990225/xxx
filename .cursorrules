@@ -1,0 +1,25 @@
+# PolyAlpha项目 - V0.dev API集成配置
+
+## V0.dev API设置
+- 使用v0.dev API来生成UI组件
+- API密钥配置在 v0-config.json 中
+- 默认框架：React + TypeScript
+- 默认样式：Tailwind CSS
+
+## 代码生成规则
+- 生成的组件应该符合PolyAlpha品牌指南
+- 使用现代化的UI设计模式
+- 确保组件的可复用性和可维护性
+- 优先使用函数式组件和React Hooks
+
+## V0 API调用指令
+当用户请求生成UI组件时：
+1. 调用v0 API生成基础代码
+2. 根据PolyAlpha品牌指南调整样式
+3. 优化代码结构和可读性
+4. 添加必要的TypeScript类型定义
+
+## 品牌一致性
+- 保持与PolyAlpha视觉识别的一致性
+- 使用品牌色彩和字体规范
+- 遵循已定义的设计原则 
