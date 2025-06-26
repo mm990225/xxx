@@ -7,7 +7,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         {/* 网站标题和描述 */}
-        <title>Discover Polymarket smart money</title>
+        <title>PolyAlpha - Discover Polymarket smart money</title>
         <meta name="description" content="Find and follow smart money on Polymarket. Follow top predictors in every field — and become a cross-domain prediction expert yourself." />
         
         {/* Favicon配置 */}
@@ -31,7 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="author" content="PolyAlpha" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Discover Polymarket smart money" />
+        <meta property="og:title" content="PolyAlpha - Discover Polymarket smart money" />
         <meta property="og:description" content="Find and follow smart money on Polymarket. Follow top predictors in every field — and become a cross-domain prediction expert yourself." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.polyalpha.fun/" />
