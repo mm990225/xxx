@@ -1,8 +1,12 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import Script from 'next/script'
 import '../styles/globals.css'
 
 export default function App({ Component, pageProps }: AppProps) {
+  // Google Analytics测量ID，可以通过环境变量配置
+  const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX'
+
   return (
     <>
       <Head>
@@ -37,6 +41,24 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta property="og:url" content="https://www.polyalpha.fun/" />
         <meta property="og:image" content="https://www.polyalpha.fun/images/logo.png" />
       </Head>
+
+      {/* Google Analytics */}
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${GA_MEASUREMENT_ID}', {
+            page_title: document.title,
+            page_location: window.location.href,
+          });
+        `}
+      </Script>
+
       <Component {...pageProps} />
     </>
   )

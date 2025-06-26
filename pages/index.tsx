@@ -1,6 +1,19 @@
 import React from 'react';
 import Image from 'next/image';
 
+// Google Analytics事件追踪函数
+declare global {
+  interface Window {
+    gtag: (command: string, targetId: string, config?: any) => void;
+  }
+}
+
+const trackEvent = (eventName: string, parameters?: any) => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', eventName, parameters);
+  }
+};
+
 const HomePage: React.FC = () => {
   const experts = [
     {
@@ -102,6 +115,10 @@ const HomePage: React.FC = () => {
           <a 
             href="/app"
             className="inline-block text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-medium transition-colors custom-go-to-app-btn button-glow pulse-glow-animation"
+            onClick={() => trackEvent('go_to_app', {
+              event_category: 'Navigation',
+              event_label: 'Homepage CTA'
+            })}
           >
             Go to App 🚀
           </a>
@@ -209,6 +226,10 @@ const HomePage: React.FC = () => {
             target="_blank" 
             rel="noopener noreferrer"
             className="bg-white text-black w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center mx-auto hover:bg-gray-100 transition-colors button-glow pulse-glow-animation"
+            onClick={() => trackEvent('follow_x', {
+              event_category: 'Social',
+              event_label: 'X/Twitter Follow'
+            })}
           >
             <div className="relative w-6 h-6 sm:w-7 sm:h-7">
               <Image
