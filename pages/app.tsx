@@ -95,101 +95,20 @@ const AppPage: React.FC = () => {
     shares: language === 'en' ? 'shares' : '股',
     amountLabel: language === 'en' ? 'Amount' : '金额',
     profitLabel: language === 'en' ? 'Profit' : '利润',
-    returnLabel: language === 'en' ? 'Return' : '收益'
-  };
-
-  // 获取当前语言的翻译
-  const translations = {
-    en: {
-      smartMoney: 'Smart Money',
-      following: 'Follow',
-      copyTrade: 'CopyTrade',
-      search: 'Search traders...',
-      logIn: 'Log In',
-      all: 'All',
-      crypto: 'Crypto',
-      sports: 'Sports',
-      politics: 'Politics',
-      user: 'User',
-      activity: 'Activity',
-      copy: 'Copy',
-      topHeader: 'Top Traders',
-      tag: 'Tag',
-      joinedOn: 'Joined On',
-      holdingValue: 'Holding Value',
-      volume: 'Volume',
-      pnl: 'P&L',
-      returnPercent: 'Return (%)',
-      follow: 'Follow',
-      buy: 'Buy',
-      sell: 'Sell',
-      redeem: 'Redeem',
-      copyTradeBtn: 'Copy Trade',
-      trader: 'Trader',
-      action: 'Action',
-      market: 'Market',
-      side: 'Side',
-      quantity: 'Quantity',
-      amount: 'Amount',
-      profit: 'Profit',
-      return: 'Return',
-      time: 'Time',
-      tagCrypto: 'Crypto',
-      tagSports: 'Sports',
-      tagPolitics: 'Politics',
-      bought: 'bought',
-      sold: 'sold',
-      redeemed: 'redeemed',
-      shares: 'shares',
-      amountLabel: 'Amount',
-      profitLabel: 'Profit',
-      returnLabel: 'Return'
-    },
-    zh: {
-      smartMoney: '聪明钱',
-      following: '关注',
-      copyTrade: '跟单',
-      search: '搜索交易员...',
-      logIn: '登录',
-      all: '全部',
-      crypto: '加密货币',
-      sports: '体育',
-      politics: '政治',
-      user: '用户',
-      activity: '活动',
-      copy: '复制',
-      topHeader: '顶级交易员',
-      tag: '标签',
-      joinedOn: '加入时间',
-      holdingValue: '持仓价值',
-      volume: '交易量',
-      pnl: '盈亏',
-      returnPercent: '收益率 (%)',
-      follow: '关注',
-      buy: '买入',
-      sell: '卖出',
-      redeem: '赎回',
-      copyTradeBtn: '跟单',
-      trader: '交易员',
-      action: '操作',
-      market: '市场',
-      side: '方向',
-      quantity: '数量',
-      amount: '金额',
-      profit: '利润',
-      return: '收益',
-      time: '时间',
-      tagCrypto: '加密货币',
-      tagSports: '体育',
-      tagPolitics: '政治',
-      bought: '买入了',
-      sold: '卖出了',
-      redeemed: '赎回了',
-      shares: '股',
-      amountLabel: '金额',
-      profitLabel: '利润',
-      returnLabel: '收益'
-    }
+    returnLabel: language === 'en' ? 'Return' : '收益',
+    // 排序相关翻译
+    sortBy: language === 'en' ? 'Sort By' : '排序方式',
+    sortDefault: language === 'en' ? 'Default' : '默认',
+    sortJoinedDesc: language === 'en' ? 'Joined ↓' : '加入时间 ↓',
+    sortJoinedAsc: language === 'en' ? 'Joined ↑' : '加入时间 ↑',
+    sortHoldingDesc: language === 'en' ? 'Holding ↓' : '持仓价值 ↓',
+    sortHoldingAsc: language === 'en' ? 'Holding ↑' : '持仓价值 ↑',
+    sortVolumeDesc: language === 'en' ? 'Volume ↓' : '交易量 ↓',
+    sortVolumeAsc: language === 'en' ? 'Volume ↑' : '交易量 ↑',
+    sortPnlDesc: language === 'en' ? 'P&L ↓' : '盈亏 ↓',
+    sortPnlAsc: language === 'en' ? 'P&L ↑' : '盈亏 ↑',
+    sortReturnDesc: language === 'en' ? 'Return ↓' : '收益率 ↓',
+    sortReturnAsc: language === 'en' ? 'Return ↑' : '收益率 ↑'
   };
 
   // 翻译tag名称的函数
@@ -1032,90 +951,84 @@ const AppPage: React.FC = () => {
               {/* Left Filters Row */}
               <div className="flex items-center space-x-2 mb-3 overflow-x-auto pb-2">
                 {activeTab === 'smart-money' ? (
-                  <>
+                  <div className="flex items-center space-x-1 px-2 py-1 rounded-lg flex-shrink-0" style={{backgroundColor: '#F5F5F5'}}>
                     <button 
                       onClick={() => handleSmartMoneyFilter('All')}
-                      className={`px-2 py-1 rounded-lg font-medium flex items-center text-xs transition-colors flex-shrink-0 ${
+                      className={`px-2 py-1 rounded-lg font-medium flex items-center text-xs transition-colors ${
                         smartMoneyFilter === 'All' 
                           ? 'bg-black text-white' 
-                          : 'text-gray-600 hover:text-black'
+                          : 'text-gray-600 hover:text-black hover:bg-white'
                       }`}
-                      style={smartMoneyFilter !== 'All' ? {backgroundColor: '#F5F5F5'} : {}}
                     >
                       <span className="mr-1">🔥</span>
                       {t.all}
                     </button>
                     <button 
                       onClick={() => handleSmartMoneyFilter('Crypto')}
-                      className={`px-2 py-1 rounded-lg font-medium flex items-center text-xs transition-colors flex-shrink-0 ${
+                      className={`px-2 py-1 rounded-lg font-medium flex items-center text-xs transition-colors ${
                         smartMoneyFilter === 'Crypto' 
                           ? 'bg-black text-white' 
-                          : 'text-gray-600 hover:text-black'
+                          : 'text-gray-600 hover:text-black hover:bg-white'
                       }`}
-                      style={smartMoneyFilter !== 'Crypto' ? {backgroundColor: '#F5F5F5'} : {}}
                     >
                       <span className="mr-1">💰</span>
                       {t.crypto}
                     </button>
                     <button 
                       onClick={() => handleSmartMoneyFilter('Sports')}
-                      className={`px-2 py-1 rounded-lg font-medium flex items-center text-xs transition-colors flex-shrink-0 ${
+                      className={`px-2 py-1 rounded-lg font-medium flex items-center text-xs transition-colors ${
                         smartMoneyFilter === 'Sports' 
                           ? 'bg-black text-white' 
-                          : 'text-gray-600 hover:text-black'
+                          : 'text-gray-600 hover:text-black hover:bg-white'
                       }`}
-                      style={smartMoneyFilter !== 'Sports' ? {backgroundColor: '#F5F5F5'} : {}}
                     >
                       <span className="mr-1">⚽</span>
                       {t.sports}
                     </button>
                     <button 
                       onClick={() => handleSmartMoneyFilter('Politics')}
-                      className={`px-2 py-1 rounded-lg font-medium flex items-center text-xs transition-colors flex-shrink-0 ${
+                      className={`px-2 py-1 rounded-lg font-medium flex items-center text-xs transition-colors ${
                         smartMoneyFilter === 'Politics' 
                           ? 'bg-black text-white' 
-                          : 'text-gray-600 hover:text-black'
+                          : 'text-gray-600 hover:text-black hover:bg-white'
                       }`}
-                      style={smartMoneyFilter !== 'Politics' ? {backgroundColor: '#F5F5F5'} : {}}
                     >
                       <span className="mr-1">🏛️</span>
                       {t.politics}
                     </button>
-                  </>
+                  </div>
                 ) : activeTab === 'following' ? (
-                  <>
+                  <div className="flex items-center space-x-1 px-2 py-1 rounded-lg flex-shrink-0" style={{backgroundColor: '#F5F5F5'}}>
                     <button 
                       onClick={() => setFollowingFilter('User')}
-                      className={`px-2 py-1 rounded-lg font-medium flex items-center text-xs transition-colors flex-shrink-0 ${
+                      className={`px-2 py-1 rounded-lg font-medium flex items-center text-xs transition-colors ${
                         followingFilter === 'User' 
                           ? 'bg-black text-white' 
-                          : 'text-gray-600 hover:text-black'
+                          : 'text-gray-600 hover:text-black hover:bg-white'
                       }`}
-                      style={followingFilter !== 'User' ? {backgroundColor: '#F5F5F5'} : {}}
                     >
                       <span className="mr-1">🧑‍🎨</span>
                       {t.user}
                     </button>
                     <button 
                       onClick={() => setFollowingFilter('Activity')}
-                      className={`px-2 py-1 rounded-lg font-medium flex items-center text-xs transition-colors flex-shrink-0 ${
+                      className={`px-2 py-1 rounded-lg font-medium flex items-center text-xs transition-colors ${
                         followingFilter === 'Activity' 
                           ? 'bg-black text-white' 
-                          : 'text-gray-600 hover:text-black'
+                          : 'text-gray-600 hover:text-black hover:bg-white'
                       }`}
-                      style={followingFilter !== 'Activity' ? {backgroundColor: '#F5F5F5'} : {}}
                     >
                       <span className="mr-1">🧭</span>
                       {t.activity}
                     </button>
-                  </>
+                  </div>
                 ) : (
-                  <>
-                    <button className="bg-black text-white px-2 py-1 rounded-lg font-medium flex items-center text-xs flex-shrink-0">
+                  <div className="flex items-center space-x-1 px-2 py-1 rounded-lg flex-shrink-0" style={{backgroundColor: '#F5F5F5'}}>
+                    <button className="bg-black text-white px-2 py-1 rounded-lg font-medium flex items-center text-xs">
                       <span className="mr-1">📋</span>
                       {t.copy}
                     </button>
-                  </>
+                  </div>
                 )}
               </div>
 
@@ -1185,15 +1098,14 @@ const AppPage: React.FC = () => {
             <div className="hidden lg:flex items-center justify-between py-4">
               <div className="flex items-center space-x-4">
                 {activeTab === 'smart-money' ? (
-                  <>
+                  <div className="flex items-center space-x-1 px-3 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
                     <button 
                       onClick={() => handleSmartMoneyFilter('All')}
                       className={`px-3 py-1 rounded-lg font-medium flex items-center text-sm transition-colors ${
                         smartMoneyFilter === 'All' 
                           ? 'bg-black text-white' 
-                          : 'text-gray-600 hover:text-black'
+                          : 'text-gray-600 hover:text-black hover:bg-white'
                       }`}
-                      style={smartMoneyFilter !== 'All' ? {backgroundColor: '#F5F5F5'} : {}}
                     >
                       <span className="mr-1">🔥</span>
                       {t.all}
@@ -1203,9 +1115,8 @@ const AppPage: React.FC = () => {
                       className={`px-3 py-1 rounded-lg font-medium flex items-center text-sm transition-colors ${
                         smartMoneyFilter === 'Crypto' 
                           ? 'bg-black text-white' 
-                          : 'text-gray-600 hover:text-black'
+                          : 'text-gray-600 hover:text-black hover:bg-white'
                       }`}
-                      style={smartMoneyFilter !== 'Crypto' ? {backgroundColor: '#F5F5F5'} : {}}
                     >
                       <span className="mr-1">💰</span>
                       {t.crypto}
@@ -1215,9 +1126,8 @@ const AppPage: React.FC = () => {
                       className={`px-3 py-1 rounded-lg font-medium flex items-center text-sm transition-colors ${
                         smartMoneyFilter === 'Sports' 
                           ? 'bg-black text-white' 
-                          : 'text-gray-600 hover:text-black'
+                          : 'text-gray-600 hover:text-black hover:bg-white'
                       }`}
-                      style={smartMoneyFilter !== 'Sports' ? {backgroundColor: '#F5F5F5'} : {}}
                     >
                       <span className="mr-1">⚽</span>
                       {t.sports}
@@ -1227,24 +1137,22 @@ const AppPage: React.FC = () => {
                       className={`px-3 py-1 rounded-lg font-medium flex items-center text-sm transition-colors ${
                         smartMoneyFilter === 'Politics' 
                           ? 'bg-black text-white' 
-                          : 'text-gray-600 hover:text-black'
+                          : 'text-gray-600 hover:text-black hover:bg-white'
                       }`}
-                      style={smartMoneyFilter !== 'Politics' ? {backgroundColor: '#F5F5F5'} : {}}
                     >
                       <span className="mr-1">🏛️</span>
                       {t.politics}
                     </button>
-                  </>
+                  </div>
                 ) : activeTab === 'following' ? (
-                  <>
+                  <div className="flex items-center space-x-1 px-3 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
                     <button 
                       onClick={() => setFollowingFilter('User')}
                       className={`px-3 py-1 rounded-lg font-medium flex items-center text-sm transition-colors ${
                         followingFilter === 'User' 
                           ? 'bg-black text-white' 
-                          : 'text-gray-600 hover:text-black'
+                          : 'text-gray-600 hover:text-black hover:bg-white'
                       }`}
-                      style={followingFilter !== 'User' ? {backgroundColor: '#F5F5F5'} : {}}
                     >
                       <span className="mr-1">🧑‍🎨</span>
                       {t.user}
@@ -1254,21 +1162,20 @@ const AppPage: React.FC = () => {
                       className={`px-3 py-1 rounded-lg font-medium flex items-center text-sm transition-colors ${
                         followingFilter === 'Activity' 
                           ? 'bg-black text-white' 
-                          : 'text-gray-600 hover:text-black'
+                          : 'text-gray-600 hover:text-black hover:bg-white'
                       }`}
-                      style={followingFilter !== 'Activity' ? {backgroundColor: '#F5F5F5'} : {}}
                     >
                       <span className="mr-1">🧭</span>
                       {t.activity}
                     </button>
-                  </>
+                  </div>
                 ) : (
-                  <>
+                  <div className="flex items-center space-x-1 px-3 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
                     <button className="bg-black text-white px-3 py-1 rounded-lg font-medium flex items-center text-sm">
                       <span className="mr-1">📋</span>
                       {t.copy}
                     </button>
-                  </>
+                  </div>
                 )}
               </div>
 
@@ -1331,6 +1238,38 @@ const AppPage: React.FC = () => {
                   )}
                 </div>
             </div>
+
+            {/* H5移动端排序选择器 - 只在非Activity页面显示 */}
+            {!(activeTab === 'following' && followingFilter === 'Activity') && (
+              <div className="lg:hidden py-3 border-t border-gray-200">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-gray-700">{t.sortBy}:</span>
+                  <div className="flex items-center space-x-2">
+                    <select 
+                      value={`${sortField}-${sortOrder}`}
+                      onChange={(e) => {
+                        const [field, order] = e.target.value.split('-') as [SortField, SortOrder];
+                        setSortField(field);
+                        setSortOrder(order);
+                      }}
+                      className="px-3 py-1 rounded-lg border border-gray-300 text-sm bg-white"
+                    >
+                      <option value="none-none">{t.sortDefault}</option>
+                      <option value="joinedOn-desc">{t.sortJoinedDesc}</option>
+                      <option value="joinedOn-asc">{t.sortJoinedAsc}</option>
+                      <option value="holdingValue-desc">{t.sortHoldingDesc}</option>
+                      <option value="holdingValue-asc">{t.sortHoldingAsc}</option>
+                      <option value="volume-desc">{t.sortVolumeDesc}</option>
+                      <option value="volume-asc">{t.sortVolumeAsc}</option>
+                      <option value="pnl-desc">{t.sortPnlDesc}</option>
+                      <option value="pnl-asc">{t.sortPnlAsc}</option>
+                      <option value="return-desc">{t.sortReturnDesc}</option>
+                      <option value="return-asc">{t.sortReturnAsc}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
