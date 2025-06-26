@@ -4,8 +4,8 @@ import Script from 'next/script'
 import '../styles/globals.css'
 
 export default function App({ Component, pageProps }: AppProps) {
-  // Google Analytics测量ID，可以通过环境变量配置
-  const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX'
+  // Google Analytics测量ID
+  const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-GWKMXNE4KT'
 
   return (
     <>
