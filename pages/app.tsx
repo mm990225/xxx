@@ -1384,11 +1384,12 @@ const AppPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           {/* 显示不同的内容基于当前的过滤器 */}
           {activeTab === 'following' && followingFilter === 'Activity' ? (
-            // Activity页面内容 - 两行卡片结构
+            // Activity页面内容 - H5适配的卡片布局
             <div className="space-y-3">
               {getActivityData().map((activity: ActivityRecord) => (
-                <div key={activity.id} className="bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors" style={{borderColor: '#F2F2F2'}}>
-                  <div className="px-6 py-4">
+                <div key={activity.id} className="bg-white border border-gray-300 rounded-lg transition-colors" style={{borderColor: '#F2F2F2'}}>
+                  {/* 桌面版布局 */}
+                  <div className="hidden lg:block px-6 py-4">
                     {/* 第一行：用户信息 + 交易动作 + 数量/金额/盈亏/收益率 */}
                     <div className="flex items-center justify-between mb-3">
                       {/* 左侧：用户信息 + 交易动作描述 */}
@@ -1497,6 +1498,115 @@ const AppPage: React.FC = () => {
                           {t.copyTradeBtn}
                         </button>
                       </div>
+                    </div>
+                  </div>
+
+                  {/* H5移动端布局 */}
+                  <div className="lg:hidden p-4">
+                    {/* 第一行：用户头像 + 姓名 + 交易动作 */}
+                    <div className="flex items-center mb-3">
+                      <div className="relative w-8 h-8 rounded-full overflow-hidden mr-3">
+                        <Image
+                          src={activity.trader.avatar}
+                          alt={activity.trader.name}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-2">
+                          <span className="font-semibold text-black text-sm">{activity.trader.name}</span>
+                          <span className="text-sm text-gray-600">
+                            {activity.action === 'buy' ? t.bought : 
+                             activity.action === 'sell' ? t.sold : t.redeemed}
+                          </span>
+                          <span className="text-sm font-medium text-black">{activity.quantity} {t.shares}</span>
+                        </div>
+                        <div className="text-xs text-gray-500 mt-1">
+                          {t.amountLabel}: {activity.amount} • {activity.time}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 第二行：事件信息 */}
+                    <div className="flex items-center mb-3">
+                      <div className="relative w-6 h-6 rounded overflow-hidden bg-gray-100 flex items-center justify-center mr-2">
+                        <Image
+                          src={activity.marketImage}
+                          alt="Event"
+                          fill
+                          className="object-cover"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                            e.currentTarget.parentElement!.innerHTML = `
+                              <svg class="w-3 h-3 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
+                              </svg>
+                            `;
+                          }}
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm text-gray-700 truncate">{activity.market}</div>
+                      </div>
+                      <span className={`px-2 py-1 rounded text-xs font-medium ml-2 ${
+                        activity.side === 'Yes' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                      }`}>
+                        {activity.side}
+                      </span>
+                    </div>
+
+                    {/* 第三行：数据网格 */}
+                    <div className="grid grid-cols-2 gap-2 mb-3">
+                      <div className="bg-gray-50 rounded p-2">
+                        <div className="text-xs text-gray-500">{t.profitLabel}</div>
+                        <div className={`text-sm font-medium ${
+                          activity.profit.startsWith('+') ? 'text-green-600' : 
+                          activity.profit.startsWith('-') ? 'text-red-600' : 'text-gray-600'
+                        }`}>
+                          {activity.profit}
+                        </div>
+                      </div>
+                      <div className="bg-gray-50 rounded p-2">
+                        <div className="text-xs text-gray-500">{t.returnLabel}</div>
+                        <div className={`text-sm font-bold ${
+                          activity.return.startsWith('+') ? 'text-green-600' : 
+                          activity.return.startsWith('-') ? 'text-red-600' : 'text-gray-600'
+                        }`}>
+                          {activity.return}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 第四行：底部操作 */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <div className="relative w-4 h-4 rounded-full overflow-hidden bg-purple-600 flex items-center justify-center">
+                          <Image
+                            src="/images/polygon-icon.png"
+                            alt="Polygon"
+                            fill
+                            className="object-cover"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                              e.currentTarget.parentElement!.innerHTML = `
+                                <span class="text-white text-xs font-bold">P</span>
+                              `;
+                            }}
+                          />
+                        </div>
+                        <span className="text-xs text-gray-500">Polygon</span>
+                      </div>
+                      <button 
+                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                          activity.action === 'redeem' 
+                            ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
+                            : 'bg-black text-white hover:bg-gray-800'
+                        }`}
+                        disabled={activity.action === 'redeem'}
+                      >
+                        {t.copyTradeBtn}
+                      </button>
                     </div>
                   </div>
                 </div>
