@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 type SortField = 'joinedOn' | 'holdingValue' | 'volume' | 'pnl' | 'return';
 type SortOrder = 'none' | 'desc' | 'asc';
@@ -25,6 +26,8 @@ interface ActivityRecord {
 }
 
 const AppPage: React.FC = () => {
+  const router = useRouter();
+  
   // 导航状态
   const [activeTab, setActiveTab] = useState<'smart-money' | 'following' | 'copytrade'>('smart-money');
   
@@ -597,6 +600,11 @@ const AppPage: React.FC = () => {
     
     // 这里可以发送到后端API
     console.log(`Toggled follow for trader ${traderId}`);
+  };
+
+  // 处理用户点击跳转到个人主页
+  const handleUserClick = (traderId: number) => {
+    router.push(`/user/${traderId}`);
   };
 
   const currentTraders = getCurrentTraders();
@@ -1622,7 +1630,10 @@ const AppPage: React.FC = () => {
                     <div className="p-4">
                       {/* Top Row: Rank + Avatar + Name + Follow */}
                       <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center">
+                        <div 
+                          className="flex items-center cursor-pointer hover:bg-gray-50 rounded-lg p-1 -m-1 transition-colors"
+                          onClick={() => handleUserClick(trader.id)}
+                        >
                           <div className="text-gray-500 text-sm font-medium mr-3 w-6">#{index + 1}</div>
                           <div className="relative w-8 h-8 rounded-full overflow-hidden mr-3">
                             <Image
@@ -1633,7 +1644,7 @@ const AppPage: React.FC = () => {
                             />
                           </div>
                           <div>
-                            <div className="font-semibold text-black text-sm">{trader.name}</div>
+                            <div className="font-semibold text-black text-sm hover:text-blue-600 transition-colors">{trader.name}</div>
                             <div className="text-xs text-gray-500">{trader.address}</div>
                           </div>
                         </div>
@@ -1772,17 +1783,22 @@ const AppPage: React.FC = () => {
                         {/* Rank and Avatar and Name */}
                         <div className="col-span-4 flex items-center">
                           <div className="text-gray-500 text-sm font-medium mr-4 w-6 ml-2">{index + 1}</div>
-                          <div className="relative w-10 h-10 rounded-full overflow-hidden mr-3">
-                            <Image
-                              src={trader.avatar}
-                              alt={trader.name}
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                          <div>
-                            <div className="font-semibold text-black text-sm">{trader.name}</div>
-                            <div className="text-xs text-gray-500">{trader.address}</div>
+                          <div 
+                            className="flex items-center cursor-pointer hover:bg-gray-50 rounded-lg p-2 -m-2 transition-colors"
+                            onClick={() => handleUserClick(trader.id)}
+                          >
+                            <div className="relative w-10 h-10 rounded-full overflow-hidden mr-3">
+                              <Image
+                                src={trader.avatar}
+                                alt={trader.name}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                            <div>
+                              <div className="font-semibold text-black text-sm hover:text-blue-600 transition-colors">{trader.name}</div>
+                              <div className="text-xs text-gray-500">{trader.address}</div>
+                            </div>
                           </div>
                         </div>
 
