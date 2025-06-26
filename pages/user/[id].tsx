@@ -287,11 +287,11 @@ const UserDetailPage: React.FC = () => {
 
       {/* Main Content */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Column - User Info */}
-          <div className="lg:col-span-1">
-            {/* User Profile Card */}
-            <div className="bg-white rounded-xl p-6 mb-6">
+        {/* Top Section: User Info + Stats + Chart */}
+        <div className="bg-white rounded-xl p-6 mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            {/* Left: User Info */}
+            <div className="lg:col-span-3">
               <div className="flex items-start space-x-4">
                 <div className="relative w-16 h-16 flex-shrink-0">
                   <Image
@@ -308,7 +308,7 @@ const UserDetailPage: React.FC = () => {
                       onClick={() => setIsFollowed(!isFollowed)}
                       className="flex-shrink-0 ml-2"
                     >
-                      <svg className={`w-6 h-6 ${isFollowed ? 'text-red-500' : 'text-gray-400'}`} fill="currentColor" viewBox="0 0 24 24">
+                      <svg className={`w-6 h-6 ${isFollowed ? 'text-purple-500' : 'text-gray-400'}`} fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                       </svg>
                     </button>
@@ -317,150 +317,113 @@ const UserDetailPage: React.FC = () => {
                   <p className="text-sm text-gray-500 mb-3">{mockUserData.joinDate}</p>
                   
                   {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-2">
                     {mockUserData.tags.map((tag, index) => (
                       <span
                         key={index}
-                        className="px-2 py-1 text-xs font-medium rounded-full"
+                        className="px-2 py-1 text-xs font-medium rounded-full flex items-center"
                         style={{
-                          backgroundColor: tag === 'Crypto' ? '#FFF3CD' : tag === 'Sports' ? '#D1ECF1' : '#F8D7DA',
-                          color: tag === 'Crypto' ? '#856404' : tag === 'Sports' ? '#0C5460' : '#721C24'
+                          backgroundColor: tag === 'Crypto' ? '#FFF3CD' : tag === 'Sports' ? '#FFE5B4' : '#E3F2FD',
+                          color: tag === 'Crypto' ? '#856404' : tag === 'Sports' ? '#E6A23C' : '#1976D2'
                         }}
                       >
+                        <span className="mr-1">
+                          {tag === 'Crypto' ? '₿' : tag === 'Sports' ? '⚽' : '🗳️'}
+                        </span>
                         {tag}
                       </span>
                     ))}
                   </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex space-x-2">
-                    <button 
-                      className="flex-1 py-2 px-4 text-white text-sm font-medium rounded-lg"
-                      style={{ backgroundColor: '#1026D2' }}
-                    >
-                      总价值
-                    </button>
-                    <button className="flex-1 py-2 px-4 text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50">
-                      收益
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Stats Cards */}
-            <div className="space-y-4">
-              {Object.entries(mockUserData.stats).map(([key, stat]) => (
-                <div key={key} className="bg-white rounded-xl p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm text-gray-500 mb-1">{stat.label}</p>
-                      <p className="text-lg font-bold text-black">{stat.value}</p>
-                    </div>
-                    <div className="w-8 h-8 flex items-center justify-center">
+            {/* Center: Stats Cards */}
+            <div className="lg:col-span-5">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                {Object.entries(mockUserData.stats).map(([key, stat]) => (
+                  <div key={key} className="text-center">
+                    <div className="flex justify-center mb-2">
                       <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                       </svg>
                     </div>
+                    <p className="text-sm text-gray-500 mb-1">{stat.label}</p>
+                    <p className="text-lg font-bold text-black">{stat.value}</p>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Right Column - Chart and Activities */}
-          <div className="lg:col-span-2">
-            {/* Chart Card */}
-            <div className="bg-white rounded-xl p-6 mb-6">
-              {/* Chart Header */}
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex space-x-2">
+            {/* Right: Chart + Time Controls */}
+            <div className="lg:col-span-4">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex space-x-1">
                   <button
-                    onClick={() => setTimeFilter('1D')}
-                    className={`px-3 py-1 rounded-lg text-sm font-medium ${
-                      timeFilter === '1D' 
-                        ? 'text-white' 
-                        : 'text-gray-600 border border-gray-300 hover:bg-gray-50'
-                    }`}
-                    style={timeFilter === '1D' ? { backgroundColor: '#1026D2' } : {}}
+                    className="px-3 py-1 rounded text-sm font-medium text-white"
+                    style={{ backgroundColor: '#1026D2' }}
                   >
-                    1D
+                    总价值
                   </button>
-                  <button
-                    onClick={() => setTimeFilter('3D')}
-                    className={`px-3 py-1 rounded-lg text-sm font-medium ${
-                      timeFilter === '3D'
-                        ? 'text-white'
-                        : 'text-gray-600 border border-gray-300 hover:bg-gray-50'
-                    }`}
-                    style={timeFilter === '3D' ? { backgroundColor: '#1026D2' } : {}}
-                  >
-                    3D
+                  <button className="px-3 py-1 rounded text-sm font-medium text-gray-600 hover:bg-gray-100">
+                    收益
                   </button>
-                  {timeFilters.slice(2, -1).map((filter) => (
+                </div>
+                <div className="flex space-x-1">
+                  {(['1D', '3D', '30D', 'All'] as const).map((period) => (
                     <button
-                      key={filter}
-                      onClick={() => setTimeFilter(filter)}
-                      className={`px-3 py-1 rounded-lg text-sm font-medium ${
-                        timeFilter === filter
+                      key={period}
+                      onClick={() => setTimeFilter(period)}
+                      className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
+                        timeFilter === period
                           ? 'text-white'
-                          : 'text-gray-600 border border-gray-300 hover:bg-gray-50'
+                          : 'text-gray-600 hover:bg-gray-100'
                       }`}
-                      style={timeFilter === filter ? { backgroundColor: '#1026D2' } : {}}
+                      style={timeFilter === period ? { backgroundColor: '#000' } : {}}
                     >
-                      {filter}
+                      {period}
                     </button>
                   ))}
-                  <button
-                    onClick={() => setTimeFilter('All')}
-                    className={`px-3 py-1 rounded-lg text-sm font-medium ${
-                      timeFilter === 'All'
-                        ? 'text-white'
-                        : 'text-gray-600 border border-gray-300 hover:bg-gray-50'
-                    }`}
-                    style={timeFilter === 'All' ? { backgroundColor: '#1026D2' } : {}}
-                  >
-                    All
-                  </button>
                 </div>
               </div>
-
-              {/* Chart */}
-              <div className="h-48 mb-4">
+              
+              <div className="h-32">
                 <LineChart data={chartData} />
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* Tabs and Content */}
-            <div className="bg-white rounded-xl overflow-hidden">
-              {/* Tab Headers */}
-              <div className="border-b border-gray-200">
-                <div className="flex">
-                  <button
-                    onClick={() => setActiveTab('positions')}
-                    className={`flex-1 py-4 px-6 text-sm font-medium text-center ${
-                      activeTab === 'positions'
-                        ? 'text-blue-600 border-b-2 border-blue-600'
-                        : 'text-gray-500 hover:text-gray-700'
-                    }`}
-                  >
-                    持仓
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('activity')}
-                    className={`flex-1 py-4 px-6 text-sm font-medium text-center ${
-                      activeTab === 'activity'
-                        ? 'text-blue-600 border-b-2 border-blue-600'
-                        : 'text-gray-500 hover:text-gray-700'
-                    }`}
-                  >
-                    活动
-                  </button>
-                </div>
-              </div>
+        {/* Bottom Section: Tabs and Tables */}
+        <div className="bg-white rounded-xl overflow-hidden">
+          {/* Tab Headers */}
+          <div className="border-b border-gray-200">
+            <div className="flex">
+              <button
+                onClick={() => setActiveTab('positions')}
+                className={`flex-1 py-4 px-6 text-sm font-medium text-center ${
+                  activeTab === 'positions'
+                    ? 'text-blue-600 border-b-2 border-blue-600'
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                持仓
+              </button>
+              <button
+                onClick={() => setActiveTab('activity')}
+                className={`flex-1 py-4 px-6 text-sm font-medium text-center ${
+                  activeTab === 'activity'
+                    ? 'text-blue-600 border-b-2 border-blue-600'
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                活动
+              </button>
+            </div>
+          </div>
 
-              {/* Tab Content */}
-              <div className="p-6">
+          {/* Tab Content */}
+          <div className="p-6">
                 {activeTab === 'positions' && (
                   <div className="space-y-4">
                     {/* Table Header */}
