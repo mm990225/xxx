@@ -52,137 +52,145 @@ const AppPage: React.FC = () => {
   const [language, setLanguage] = useState<'en' | 'zh'>('en');
 
   // 翻译对象
-  const translations = {
-    en: {
-      // 导航
-      smartMoney: "Smart money",
-      following: "Following",
-      copyTrade: "CopyTrade",
-      search: "Search",
-      logIn: "Log in",
-      
-      // 分类筛选
-      all: "All",
-      top: "Top",
-      crypto: "Crypto",
-      sports: "Sports",
-      politics: "Politics",
-      user: "User", 
-      activity: "Activity",
-      copy: "Copy",
-      
-      // 交易类型
-      buy: "Buy",
-      sell: "Sell",
-      redeem: "Redeem",
-      
-      // 表头
-      topHeader: "Top",
-      tag: "Tag",
-      joinedOn: "Joined On",
-      holdingValue: "Holding Value",
-      volume: "Volume",
-      pnl: "P&L",
-      returnPercent: "Return (%)",
-      follow: "Follow",
-      
-      // Activity页面
-      trader: "Trader",
-      market: "Market", 
-      side: "Side",
-      quantity: "Quantity",
-      amount: "Amount",
-      profit: "Profit",
-      action: "Action",
-      copyTradeBtn: "Copy Trade",
-      
-      // 交易描述
-      bought: "bought",
-      sold: "sold", 
-      redeemed: "redeemed",
-      shares: "shares",
-      amountLabel: "amount",
-      profitLabel: "Profit",
-      returnLabel: "Return",
-      
-      // 时间
-      hoursAgo: "hours ago",
-      daysAgo: "days ago",
-      weekAgo: "week ago",
-      yearAgo: "year ago",
-      
-      // Tag翻译
-      tagCrypto: "Crypto",
-      tagSports: "Sports",
-      tagPolitics: "Politics"
-    },
-    zh: {
-      // 导航
-      smartMoney: "聪明钱",
-      following: "关注中",
-      copyTrade: "跟单交易",
-      search: "搜索",
-      logIn: "登录",
-      
-      // 分类筛选
-      all: "全部",
-      top: "顶级",
-      crypto: "加密货币",
-      sports: "体育",
-      politics: "政治",
-      user: "用户",
-      activity: "活动",
-      copy: "复制",
-      
-      // 交易类型
-      buy: "买入",
-      sell: "卖出", 
-      redeem: "赎回",
-      
-      // 表头
-      topHeader: "排行",
-      tag: "标签",
-      joinedOn: "加入时间",
-      holdingValue: "持仓价值",
-      volume: "交易量",
-      pnl: "盈亏",
-      returnPercent: "收益率 (%)",
-      follow: "关注",
-      
-      // Activity页面
-      trader: "交易员",
-      market: "市场",
-      side: "方向", 
-      quantity: "数量",
-      amount: "金额",
-      profit: "利润",
-      action: "操作",
-      copyTradeBtn: "复制交易",
-      
-      // 交易描述
-      bought: "购买了",
-      sold: "出售了",
-      redeemed: "赎回了", 
-      shares: "股",
-      amountLabel: "金额",
-      profitLabel: "盈亏",
-      returnLabel: "收益率",
-      
-      // 时间
-      hoursAgo: "小时前",
-      daysAgo: "天前", 
-      weekAgo: "周前",
-      yearAgo: "年前",
-      
-      // Tag翻译
-      tagCrypto: "加密货币",
-      tagSports: "体育",
-      tagPolitics: "政治"
-    }
+  const t = {
+    smartMoney: language === 'en' ? 'Smart Money' : '聪明钱',
+    following: language === 'en' ? 'Follow' : '关注',
+    copyTrade: language === 'en' ? 'CopyTrade' : '跟单',
+    search: language === 'en' ? 'Search traders...' : '搜索交易员...',
+    logIn: language === 'en' ? 'Log In' : '登录',
+    all: language === 'en' ? 'All' : '全部',
+    crypto: language === 'en' ? 'Crypto' : '加密货币',
+    sports: language === 'en' ? 'Sports' : '体育',
+    politics: language === 'en' ? 'Politics' : '政治',
+    user: language === 'en' ? 'User' : '用户',
+    activity: language === 'en' ? 'Activity' : '活动',
+    copy: language === 'en' ? 'Copy' : '复制',
+    topHeader: language === 'en' ? 'Top Traders' : '顶级交易员',
+    tag: language === 'en' ? 'Tag' : '标签',
+    joinedOn: language === 'en' ? 'Joined On' : '加入时间',
+    holdingValue: language === 'en' ? 'Holding Value' : '持仓价值',
+    volume: language === 'en' ? 'Volume' : '交易量',
+    pnl: language === 'en' ? 'P&L' : '盈亏',
+    returnPercent: language === 'en' ? 'Return (%)' : '收益率 (%)',
+    follow: language === 'en' ? 'Follow' : '关注',
+    buy: language === 'en' ? 'Buy' : '买入',
+    sell: language === 'en' ? 'Sell' : '卖出',
+    redeem: language === 'en' ? 'Redeem' : '赎回',
+    copyTradeBtn: language === 'en' ? 'Copy Trade' : '跟单',
+    trader: language === 'en' ? 'Trader' : '交易员',
+    action: language === 'en' ? 'Action' : '操作',
+    market: language === 'en' ? 'Market' : '市场',
+    side: language === 'en' ? 'Side' : '方向',
+    quantity: language === 'en' ? 'Quantity' : '数量',
+    amount: language === 'en' ? 'Amount' : '金额',
+    profit: language === 'en' ? 'Profit' : '利润',
+    return: language === 'en' ? 'Return' : '收益',
+    time: language === 'en' ? 'Time' : '时间',
+    tagCrypto: language === 'en' ? 'Crypto' : '加密货币',
+    tagSports: language === 'en' ? 'Sports' : '体育',
+    tagPolitics: language === 'en' ? 'Politics' : '政治',
+    bought: language === 'en' ? 'bought' : '买入了',
+    sold: language === 'en' ? 'sold' : '卖出了',
+    redeemed: language === 'en' ? 'redeemed' : '赎回了',
+    shares: language === 'en' ? 'shares' : '股',
+    amountLabel: language === 'en' ? 'Amount' : '金额',
+    profitLabel: language === 'en' ? 'Profit' : '利润',
+    returnLabel: language === 'en' ? 'Return' : '收益'
   };
 
   // 获取当前语言的翻译
-  const t = translations[language];
+  const translations = {
+    en: {
+      smartMoney: 'Smart Money',
+      following: 'Follow',
+      copyTrade: 'CopyTrade',
+      search: 'Search traders...',
+      logIn: 'Log In',
+      all: 'All',
+      crypto: 'Crypto',
+      sports: 'Sports',
+      politics: 'Politics',
+      user: 'User',
+      activity: 'Activity',
+      copy: 'Copy',
+      topHeader: 'Top Traders',
+      tag: 'Tag',
+      joinedOn: 'Joined On',
+      holdingValue: 'Holding Value',
+      volume: 'Volume',
+      pnl: 'P&L',
+      returnPercent: 'Return (%)',
+      follow: 'Follow',
+      buy: 'Buy',
+      sell: 'Sell',
+      redeem: 'Redeem',
+      copyTradeBtn: 'Copy Trade',
+      trader: 'Trader',
+      action: 'Action',
+      market: 'Market',
+      side: 'Side',
+      quantity: 'Quantity',
+      amount: 'Amount',
+      profit: 'Profit',
+      return: 'Return',
+      time: 'Time',
+      tagCrypto: 'Crypto',
+      tagSports: 'Sports',
+      tagPolitics: 'Politics',
+      bought: 'bought',
+      sold: 'sold',
+      redeemed: 'redeemed',
+      shares: 'shares',
+      amountLabel: 'Amount',
+      profitLabel: 'Profit',
+      returnLabel: 'Return'
+    },
+    zh: {
+      smartMoney: '聪明钱',
+      following: '关注',
+      copyTrade: '跟单',
+      search: '搜索交易员...',
+      logIn: '登录',
+      all: '全部',
+      crypto: '加密货币',
+      sports: '体育',
+      politics: '政治',
+      user: '用户',
+      activity: '活动',
+      copy: '复制',
+      topHeader: '顶级交易员',
+      tag: '标签',
+      joinedOn: '加入时间',
+      holdingValue: '持仓价值',
+      volume: '交易量',
+      pnl: '盈亏',
+      returnPercent: '收益率 (%)',
+      follow: '关注',
+      buy: '买入',
+      sell: '卖出',
+      redeem: '赎回',
+      copyTradeBtn: '跟单',
+      trader: '交易员',
+      action: '操作',
+      market: '市场',
+      side: '方向',
+      quantity: '数量',
+      amount: '金额',
+      profit: '利润',
+      return: '收益',
+      time: '时间',
+      tagCrypto: '加密货币',
+      tagSports: '体育',
+      tagPolitics: '政治',
+      bought: '买入了',
+      sold: '卖出了',
+      redeemed: '赎回了',
+      shares: '股',
+      amountLabel: '金额',
+      profitLabel: '利润',
+      returnLabel: '收益'
+    }
+  };
 
   // 翻译tag名称的函数
   const translateTag = (tag: string): string => {
@@ -1180,7 +1188,7 @@ const AppPage: React.FC = () => {
                   <>
                     <button 
                       onClick={() => handleSmartMoneyFilter('All')}
-                      className={`px-3 py-1.5 rounded-xl font-medium flex items-center text-sm transition-colors ${
+                      className={`px-3 py-1 rounded-lg font-medium flex items-center text-sm transition-colors ${
                         smartMoneyFilter === 'All' 
                           ? 'bg-black text-white' 
                           : 'text-gray-600 hover:text-black'
@@ -1192,7 +1200,7 @@ const AppPage: React.FC = () => {
                     </button>
                     <button 
                       onClick={() => handleSmartMoneyFilter('Crypto')}
-                      className={`px-3 py-1.5 rounded-xl font-medium flex items-center text-sm transition-colors ${
+                      className={`px-3 py-1 rounded-lg font-medium flex items-center text-sm transition-colors ${
                         smartMoneyFilter === 'Crypto' 
                           ? 'bg-black text-white' 
                           : 'text-gray-600 hover:text-black'
@@ -1204,7 +1212,7 @@ const AppPage: React.FC = () => {
                     </button>
                     <button 
                       onClick={() => handleSmartMoneyFilter('Sports')}
-                      className={`px-3 py-1.5 rounded-xl font-medium flex items-center text-sm transition-colors ${
+                      className={`px-3 py-1 rounded-lg font-medium flex items-center text-sm transition-colors ${
                         smartMoneyFilter === 'Sports' 
                           ? 'bg-black text-white' 
                           : 'text-gray-600 hover:text-black'
@@ -1216,7 +1224,7 @@ const AppPage: React.FC = () => {
                     </button>
                     <button 
                       onClick={() => handleSmartMoneyFilter('Politics')}
-                      className={`px-3 py-1.5 rounded-xl font-medium flex items-center text-sm transition-colors ${
+                      className={`px-3 py-1 rounded-lg font-medium flex items-center text-sm transition-colors ${
                         smartMoneyFilter === 'Politics' 
                           ? 'bg-black text-white' 
                           : 'text-gray-600 hover:text-black'
@@ -1231,7 +1239,7 @@ const AppPage: React.FC = () => {
                   <>
                     <button 
                       onClick={() => setFollowingFilter('User')}
-                      className={`px-3 py-1.5 rounded-xl font-medium flex items-center text-sm transition-colors ${
+                      className={`px-3 py-1 rounded-lg font-medium flex items-center text-sm transition-colors ${
                         followingFilter === 'User' 
                           ? 'bg-black text-white' 
                           : 'text-gray-600 hover:text-black'
@@ -1243,7 +1251,7 @@ const AppPage: React.FC = () => {
                     </button>
                     <button 
                       onClick={() => setFollowingFilter('Activity')}
-                      className={`px-3 py-1.5 rounded-xl font-medium flex items-center text-sm transition-colors ${
+                      className={`px-3 py-1 rounded-lg font-medium flex items-center text-sm transition-colors ${
                         followingFilter === 'Activity' 
                           ? 'bg-black text-white' 
                           : 'text-gray-600 hover:text-black'
@@ -1256,7 +1264,7 @@ const AppPage: React.FC = () => {
                   </>
                 ) : (
                   <>
-                    <button className="bg-black text-white px-3 py-1.5 rounded-xl font-medium flex items-center text-sm">
+                    <button className="bg-black text-white px-3 py-1 rounded-lg font-medium flex items-center text-sm">
                       <span className="mr-1">📋</span>
                       {t.copy}
                     </button>
