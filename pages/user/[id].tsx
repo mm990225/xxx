@@ -108,16 +108,16 @@ const UserDetailPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#FAFAFA' }}>
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="bg-white border-b sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          {/* Desktop Header */}
-          <div className="hidden lg:flex items-center justify-between h-16">
-            {/* Logo and Navigation */}
-            <div className="flex items-center space-x-8">
-              <div className="flex items-center">
-                <div className="relative w-8 h-8 mr-3">
+      <header className="bg-white sticky top-0 z-50">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
+          {/* Mobile Layout */}
+          <div className="lg:hidden">
+            {/* Top Row: Logo + Right buttons */}
+            <div className="flex items-center justify-between h-16">
+              <a href="/" className="flex items-center hover:opacity-80 transition-opacity">
+                <div className="relative w-6 h-6 sm:w-8 sm:h-8 mr-2">
                   <Image
                     src="/images/logo.png"
                     alt="PolyAlpha Logo"
@@ -125,101 +125,165 @@ const UserDetailPage: React.FC = () => {
                     className="object-contain"
                   />
                 </div>
-                <span className="text-xl font-bold" style={{ color: '#1026D2' }}>PolyAlpha</span>
+                <span className="text-lg sm:text-xl font-bold text-black">PolyAlpha</span>
+              </a>
+              
+              <div className="flex items-center space-x-2">
+                {/* X Icon */}
+                <a 
+                  href="https://x.com/PolyAlpha" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="p-1.5 text-gray-600 hover:text-black transition-colors"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                  </svg>
+                </a>
+                
+                {/* Language Toggle */}
+                <button 
+                  className="px-2 py-1 rounded text-xs font-medium text-gray-600 hover:text-black hover:bg-gray-100 transition-colors border border-gray-300"
+                >
+                  中文
+                </button>
+
+                {/* Login button */}
+                <button className="text-white px-3 py-1.5 rounded-xl font-bold transition-colors text-sm hover:opacity-90" style={{backgroundColor: '#1026D2'}}>
+                  Log In
+                </button>
               </div>
-              <nav className="flex space-x-6">
-                <a href="/app" className="text-xl font-medium hover:text-blue-600 transition-colors">Smart Money</a>
-                <a href="/app" className="text-xl font-medium hover:text-blue-600 transition-colors">Follow</a>
-                <a href="/app" className="text-xl font-medium hover:text-blue-600 transition-colors">CopyTrade</a>
+            </div>
+            
+            {/* Bottom Row: Navigation */}
+            <div className="pb-3 border-b border-gray-200">
+              <nav className="flex items-center justify-center space-x-6">
+                <a 
+                  href="/app"
+                  className="px-2 py-1.5 font-bold text-base transition-colors text-gray-600 hover:text-black"
+                >
+                  Smart Money
+                </a>
+                <a 
+                  href="/app"
+                  className="px-2 py-1.5 font-bold text-base transition-colors text-gray-600 hover:text-black"
+                >
+                  Follow
+                </a>
+                <a 
+                  href="/app"
+                  className="px-2 py-1.5 font-bold text-base transition-colors text-gray-600 hover:text-black"
+                >
+                  CopyTrade
+                </a>
               </nav>
             </div>
-
-            {/* Search and Actions */}
-            <div className="flex items-center space-x-4">
+            
+            {/* Search Row */}
+            <div className="py-3">
               <div className="relative">
                 <input
                   type="text"
                   placeholder="Search traders"
-                  className="w-64 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-10 pr-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent font-medium text-sm placeholder:font-medium placeholder:text-gray-500"
+                  style={{backgroundColor: '#F5F5F5', borderColor: '#E5E5E5', borderWidth: '1px'}}
                 />
-                <div className="absolute right-3 top-2.5">
-                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </div>
-              </div>
-              
-              <div className="flex items-center space-x-2">
-                <button className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors">
-                  <Image src="/images/icon-x.png" alt="X" width={16} height={16} />
-                </button>
-                <button className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors">
-                  <span className="text-sm font-medium">EN</span>
-                </button>
-                <button 
-                  className="px-4 py-2 text-white rounded-lg font-medium transition-colors"
-                  style={{ backgroundColor: '#1026D2' }}
-                >
-                  Log in
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile Header */}
-          <div className="lg:hidden py-4">
-            {/* First Row: Logo + Right Actions */}
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center">
-                <div className="relative w-6 h-6 mr-2">
-                  <Image
-                    src="/images/logo.png"
-                    alt="PolyAlpha Logo"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-                <span className="text-lg font-bold" style={{ color: '#1026D2' }}>PolyAlpha</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <button className="w-6 h-6 rounded-full flex items-center justify-center">
-                  <Image src="/images/icon-x.png" alt="X" width={12} height={12} />
-                </button>
-                <button className="w-6 h-6 rounded-full flex items-center justify-center">
-                  <span className="text-xs font-medium">EN</span>
-                </button>
-                <button 
-                  className="px-3 py-1 text-white rounded text-sm font-medium"
-                  style={{ backgroundColor: '#1026D2' }}
-                >
-                  Log in
-                </button>
-              </div>
-            </div>
-
-            {/* Second Row: Navigation */}
-            <div className="flex justify-center space-x-6 mb-4">
-              <a href="/app" className="text-base font-medium hover:text-blue-600 transition-colors">Smart Money</a>
-              <a href="/app" className="text-base font-medium hover:text-blue-600 transition-colors">Follow</a>
-              <a href="/app" className="text-base font-medium hover:text-blue-600 transition-colors">CopyTrade</a>
-            </div>
-
-            {/* Third Row: Search */}
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search traders"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <div className="absolute right-3 top-2.5">
-                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
             </div>
           </div>
+
+          {/* Desktop Layout */}
+          <div className="hidden lg:flex items-center h-16">
+            {/* Left: Logo and Brand */}
+            <a href="/" className="flex items-center hover:opacity-80 transition-opacity">
+              <div className="relative w-8 h-8 mr-3">
+                <Image
+                  src="/images/logo.png"
+                  alt="PolyAlpha Logo"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <span className="text-xl font-bold text-black">PolyAlpha</span>
+            </a>
+
+            {/* Center: Navigation and Search */}
+            <div className="flex-1 flex items-center justify-center">
+              <div className="flex items-center space-x-8">
+                {/* Navigation Tabs */}
+                <nav className="flex items-center space-x-6">
+                  <a 
+                    href="/app"
+                    className="px-3 py-1.5 font-extrabold text-xl transition-colors text-gray-600 hover:text-black"
+                  >
+                    Smart Money
+                  </a>
+                  <a 
+                    href="/app"
+                    className="px-3 py-1.5 font-extrabold text-xl transition-colors text-gray-600 hover:text-black"
+                  >
+                    Follow
+                  </a>
+                  <a 
+                    href="/app"
+                    className="px-3 py-1.5 font-extrabold text-xl transition-colors text-gray-600 hover:text-black"
+                  >
+                    CopyTrade
+                  </a>
+                </nav>
+                
+                {/* Search Bar */}
+                <div className="relative ml-8">
+                  <input
+                    type="text"
+                    placeholder="Search traders"
+                    className="pl-10 pr-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-64 font-bold text-base placeholder:font-bold placeholder:text-gray-500"
+                    style={{backgroundColor: '#F5F5F5', borderColor: '#E5E5E5', borderWidth: '1px'}}
+                  />
+                  <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Icons and Login */}
+            <div className="flex items-center space-x-3">
+              {/* X Icon */}
+              <a 
+                href="https://x.com/PolyAlpha" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="p-2 text-gray-600 hover:text-black transition-colors"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+              
+              {/* Language Toggle */}
+              <button className="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:text-black hover:bg-gray-100 transition-colors border border-gray-300">
+                中文
+              </button>
+              
+              {/* Dark Mode Toggle (placeholder) */}
+              <button className="p-2 text-gray-600 hover:text-black transition-colors">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+              </button>
+              
+              {/* Login Button */}
+              <button className="text-white px-4 py-2 rounded-2xl font-bold transition-colors text-base hover:opacity-90" style={{backgroundColor: '#1026D2'}}>
+                Log In
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      </header>
 
       {/* Main Content */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
