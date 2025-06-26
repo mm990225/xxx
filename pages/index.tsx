@@ -101,9 +101,12 @@ const HomePage: React.FC = () => {
             Discover hidden alpha from top Polymarket<br className="hidden sm:block" />
             <span className="sm:hidden"> </span>traders—in real time.
           </p>
-          <button className="text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-medium transition-colors custom-go-to-app-btn button-glow pulse-glow-animation">
+          <a 
+            href="/app"
+            className="inline-block text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-medium transition-colors custom-go-to-app-btn button-glow pulse-glow-animation"
+          >
             Coming soon 👻
-          </button>
+          </a>
         </div>
 
         {/* Large image area - 使用Image组件完全填满 */}
