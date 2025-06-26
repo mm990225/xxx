@@ -289,9 +289,10 @@ const UserDetailPage: React.FC = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
           {/* Top Section: User Info + Stats + Chart */}
           <div className="bg-white rounded-xl p-6 mb-6">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-              {/* Left: User Info */}
-              <div className="lg:col-span-3">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Left Column */}
+              <div className="space-y-6">
+                {/* Left Top: User Info */}
                 <div className="flex items-start space-x-4">
                   <div className="relative w-16 h-16 flex-shrink-0">
                     <Image
@@ -336,11 +337,9 @@ const UserDetailPage: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Center: Stats Cards */}
-              <div className="lg:col-span-5">
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* Left Bottom: Stats Cards */}
+                <div className="grid grid-cols-2 gap-4">
                   {Object.entries(mockUserData.stats).map(([key, stat]) => (
                     <div key={key} className="text-center">
                       <div className="flex justify-center mb-2">
@@ -355,8 +354,8 @@ const UserDetailPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Right: Chart + Time Controls */}
-              <div className="lg:col-span-4">
+              {/* Right Column: Chart + Time Controls */}
+              <div>
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex space-x-1">
                     <button
@@ -387,7 +386,7 @@ const UserDetailPage: React.FC = () => {
                   </div>
                 </div>
                 
-                <div className="h-32">
+                <div className="h-48">
                   <LineChart data={chartData} />
                 </div>
               </div>
