@@ -1112,7 +1112,7 @@ const AppPage: React.FC = () => {
               </div>
 
               {/* Right Filters Row */}
-              <div className="flex items-center justify-center">
+              <div className="flex items-center">
                 {activeTab === 'following' && followingFilter === 'Activity' ? (
                   <>
                     {/* Activity页面的双筛选器 */}
@@ -1454,7 +1454,7 @@ const AppPage: React.FC = () => {
               {/* Mobile Layout */}
               <div className="lg:hidden space-y-3">
                 {sortedTraders.map((trader, index) => (
-                  <div key={trader.id} className="bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors" style={{borderColor: '#F2F2F2'}}>
+                  <div key={trader.id} className="bg-white border border-gray-300 rounded-lg transition-colors" style={{borderColor: '#F2F2F2'}}>
                     <div className="p-4">
                       {/* Top Row: Rank + Avatar + Name + Follow */}
                       <div className="flex items-center justify-between mb-3">
