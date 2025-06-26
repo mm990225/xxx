@@ -56,7 +56,7 @@ const AppPage: React.FC = () => {
     smartMoney: language === 'en' ? 'Smart Money' : '聪明钱',
     following: language === 'en' ? 'Follow' : '关注',
     copyTrade: language === 'en' ? 'CopyTrade' : '跟单',
-    search: language === 'en' ? 'Search traders...' : '搜索交易员...',
+    search: language === 'en' ? 'Search traders' : '搜索交易员...',
     logIn: language === 'en' ? 'Log In' : '登录',
     all: language === 'en' ? 'All' : '全部',
     crypto: language === 'en' ? 'Crypto' : '加密货币',
@@ -949,7 +949,7 @@ const AppPage: React.FC = () => {
             {/* Mobile Layout */}
             <div className="lg:hidden py-3">
               {/* Left Filters Row */}
-              <div className="flex items-center space-x-2 mb-3 overflow-x-auto pb-2">
+              <div className="flex items-center space-x-2 mb-2 overflow-x-auto pb-2">
                 {activeTab === 'smart-money' ? (
                   <div className="flex items-center space-x-1 px-2 py-1 rounded-lg flex-shrink-0" style={{backgroundColor: '#F5F5F5'}}>
                     <button 
