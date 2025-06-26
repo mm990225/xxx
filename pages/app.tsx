@@ -815,8 +815,105 @@ const AppPage: React.FC = () => {
         {/* Header */}
         <header className="bg-white sticky top-0 z-50">
           <div className="w-full px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center h-16">
-              {/* Left: Logo and Brand - 靠最左边 */}
+            {/* Mobile Layout */}
+            <div className="lg:hidden">
+              {/* Top Row: Logo + Right buttons */}
+              <div className="flex items-center justify-between h-16">
+                <a href="/" className="flex items-center hover:opacity-80 transition-opacity">
+                  <div className="relative w-6 h-6 sm:w-8 sm:h-8 mr-2">
+                    <Image
+                      src="/images/logo.png"
+                      alt="PolyAlpha Logo"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <span className="text-lg sm:text-xl font-bold text-black">PolyAlpha</span>
+                </a>
+                
+                <div className="flex items-center space-x-2">
+                  {/* X Icon */}
+                  <a 
+                    href="https://x.com/PolyAlpha" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="p-1.5 text-gray-600 hover:text-black transition-colors"
+                  >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                  </a>
+                  
+                  {/* Language Toggle */}
+                  <button 
+                    onClick={() => setLanguage(language === 'en' ? 'zh' : 'en')}
+                    className="px-2 py-1 rounded text-xs font-medium text-gray-600 hover:text-black hover:bg-gray-100 transition-colors border border-gray-300"
+                  >
+                    {language === 'en' ? '中文' : 'EN'}
+                  </button>
+
+                  {/* Login button */}
+                  <button className="text-white px-3 py-1.5 rounded-xl font-bold transition-colors text-sm hover:opacity-90" style={{backgroundColor: '#1026D2'}}>
+                    {t.logIn}
+                  </button>
+                </div>
+              </div>
+              
+              {/* Bottom Row: Navigation */}
+              <div className="pb-3 border-b border-gray-200">
+                <nav className="flex items-center justify-center space-x-6">
+                  <button 
+                    onClick={() => handleTabChange('smart-money')}
+                    className={`px-2 py-1.5 font-bold text-base transition-colors ${
+                      activeTab === 'smart-money' 
+                        ? 'text-[#1026D2]' 
+                        : 'text-gray-600 hover:text-black'
+                    }`}
+                  >
+                    {t.smartMoney}
+                  </button>
+                  <button 
+                    onClick={() => handleTabChange('following')}
+                    className={`px-2 py-1.5 font-bold text-base transition-colors ${
+                      activeTab === 'following' 
+                        ? 'text-[#1026D2]' 
+                        : 'text-gray-600 hover:text-black'
+                    }`}
+                  >
+                    {t.following}
+                  </button>
+                  <button 
+                    onClick={() => handleTabChange('copytrade')}
+                    className={`px-2 py-1.5 font-bold text-base transition-colors ${
+                      activeTab === 'copytrade' 
+                        ? 'text-[#1026D2]' 
+                        : 'text-gray-600 hover:text-black'
+                    }`}
+                  >
+                    {t.copyTrade}
+                  </button>
+                </nav>
+              </div>
+              
+              {/* Search Row */}
+              <div className="py-3">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder={t.search}
+                    className="w-full pl-10 pr-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent font-medium text-sm placeholder:font-medium placeholder:text-gray-500"
+                    style={{backgroundColor: '#F5F5F5', borderColor: '#E5E5E5', borderWidth: '1px'}}
+                  />
+                  <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            {/* Desktop Layout */}
+            <div className="hidden lg:flex items-center h-16">
+              {/* Left: Logo and Brand */}
               <a href="/" className="flex items-center hover:opacity-80 transition-opacity">
                 <div className="relative w-8 h-8 mr-3">
                   <Image
@@ -829,7 +926,7 @@ const AppPage: React.FC = () => {
                 <span className="text-xl font-bold text-black">PolyAlpha</span>
               </a>
 
-              {/* Center: Navigation and Search - 居中 */}
+              {/* Center: Navigation and Search */}
               <div className="flex-1 flex items-center justify-center">
                 <div className="flex items-center space-x-8">
                   {/* Navigation Tabs */}
@@ -881,7 +978,7 @@ const AppPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Right: Icons and Login - 靠最右边 */}
+              {/* Right: Icons and Login */}
               <div className="flex items-center space-x-3">
                 {/* X Icon */}
                 <a 
@@ -920,9 +1017,164 @@ const AppPage: React.FC = () => {
         </header>
 
         {/* Category Filters */}
-        <div className="bg-white sticky top-16 z-40">
+        <div className="bg-white sticky lg:top-16 top-36 z-40">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between py-4">
+            {/* Mobile Layout */}
+            <div className="lg:hidden py-3">
+              {/* Left Filters Row */}
+              <div className="flex items-center space-x-2 mb-3 overflow-x-auto pb-2">
+                {activeTab === 'smart-money' ? (
+                  <>
+                    <button 
+                      onClick={() => handleSmartMoneyFilter('All')}
+                      className={`px-2 py-1 rounded-lg font-medium flex items-center text-xs transition-colors flex-shrink-0 ${
+                        smartMoneyFilter === 'All' 
+                          ? 'bg-black text-white' 
+                          : 'text-gray-600 hover:text-black'
+                      }`}
+                      style={smartMoneyFilter !== 'All' ? {backgroundColor: '#F5F5F5'} : {}}
+                    >
+                      <span className="mr-1">🔥</span>
+                      {t.all}
+                    </button>
+                    <button 
+                      onClick={() => handleSmartMoneyFilter('Crypto')}
+                      className={`px-2 py-1 rounded-lg font-medium flex items-center text-xs transition-colors flex-shrink-0 ${
+                        smartMoneyFilter === 'Crypto' 
+                          ? 'bg-black text-white' 
+                          : 'text-gray-600 hover:text-black'
+                      }`}
+                      style={smartMoneyFilter !== 'Crypto' ? {backgroundColor: '#F5F5F5'} : {}}
+                    >
+                      <span className="mr-1">💰</span>
+                      {t.crypto}
+                    </button>
+                    <button 
+                      onClick={() => handleSmartMoneyFilter('Sports')}
+                      className={`px-2 py-1 rounded-lg font-medium flex items-center text-xs transition-colors flex-shrink-0 ${
+                        smartMoneyFilter === 'Sports' 
+                          ? 'bg-black text-white' 
+                          : 'text-gray-600 hover:text-black'
+                      }`}
+                      style={smartMoneyFilter !== 'Sports' ? {backgroundColor: '#F5F5F5'} : {}}
+                    >
+                      <span className="mr-1">⚽</span>
+                      {t.sports}
+                    </button>
+                    <button 
+                      onClick={() => handleSmartMoneyFilter('Politics')}
+                      className={`px-2 py-1 rounded-lg font-medium flex items-center text-xs transition-colors flex-shrink-0 ${
+                        smartMoneyFilter === 'Politics' 
+                          ? 'bg-black text-white' 
+                          : 'text-gray-600 hover:text-black'
+                      }`}
+                      style={smartMoneyFilter !== 'Politics' ? {backgroundColor: '#F5F5F5'} : {}}
+                    >
+                      <span className="mr-1">🏛️</span>
+                      {t.politics}
+                    </button>
+                  </>
+                ) : activeTab === 'following' ? (
+                  <>
+                    <button 
+                      onClick={() => setFollowingFilter('User')}
+                      className={`px-2 py-1 rounded-lg font-medium flex items-center text-xs transition-colors flex-shrink-0 ${
+                        followingFilter === 'User' 
+                          ? 'bg-black text-white' 
+                          : 'text-gray-600 hover:text-black'
+                      }`}
+                      style={followingFilter !== 'User' ? {backgroundColor: '#F5F5F5'} : {}}
+                    >
+                      <span className="mr-1">🧑‍🎨</span>
+                      {t.user}
+                    </button>
+                    <button 
+                      onClick={() => setFollowingFilter('Activity')}
+                      className={`px-2 py-1 rounded-lg font-medium flex items-center text-xs transition-colors flex-shrink-0 ${
+                        followingFilter === 'Activity' 
+                          ? 'bg-black text-white' 
+                          : 'text-gray-600 hover:text-black'
+                      }`}
+                      style={followingFilter !== 'Activity' ? {backgroundColor: '#F5F5F5'} : {}}
+                    >
+                      <span className="mr-1">🧭</span>
+                      {t.activity}
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button className="bg-black text-white px-2 py-1 rounded-lg font-medium flex items-center text-xs flex-shrink-0">
+                      <span className="mr-1">📋</span>
+                      {t.copy}
+                    </button>
+                  </>
+                )}
+              </div>
+
+              {/* Right Filters Row */}
+              <div className="flex items-center justify-center">
+                {activeTab === 'following' && followingFilter === 'Activity' ? (
+                  <>
+                    {/* Activity页面的双筛选器 */}
+                    <div className="flex items-center space-x-2 overflow-x-auto">
+                      {/* 交易类型筛选器 */}
+                      <div className="flex items-center space-x-1 px-2 py-1 rounded-lg flex-shrink-0" style={{backgroundColor: '#F5F5F5'}}>
+                        {['Buy', 'Sell', 'Redeem'].map((filter) => (
+                          <button
+                            key={filter}
+                            onClick={() => handleActivityActionFilter(filter as 'Buy' | 'Sell' | 'Redeem')}
+                            className={`px-2 py-1 rounded-lg text-xs font-medium transition-colors ${
+                              filter === activityActionFilter 
+                                ? "bg-black text-white" 
+                                : "text-gray-600 hover:text-black hover:bg-white"
+                            }`}
+                          >
+                            {filter === 'Buy' ? t.buy : filter === 'Sell' ? t.sell : t.redeem}
+                          </button>
+                        ))}
+                      </div>
+                      
+                      {/* 金额筛选器 */}
+                      <div className="flex items-center space-x-1 px-2 py-1 rounded-lg flex-shrink-0" style={{backgroundColor: '#F5F5F5'}}>
+                        {['$>100', '$>1k', '$>2k', '$>3k'].map((filter) => (
+                          <button
+                            key={filter}
+                            onClick={() => handleActivityAmountFilter(filter as '$>100' | '$>1k' | '$>2k' | '$>3k')}
+                            className={`px-2 py-1 rounded-lg text-xs font-medium transition-colors ${
+                              filter === activityAmountFilter 
+                                ? "bg-black text-white" 
+                                : "text-gray-600 hover:text-black hover:bg-white"
+                            }`}
+                          >
+                            {filter}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  // 其他页面的时间筛选器
+                  <div className="flex items-center space-x-1 px-2 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
+                    {timeFilters.map((filter) => (
+                      <button
+                        key={filter}
+                        onClick={() => handleTimeFilter(filter as '1D' | '3D' | '7D' | '30D' | 'All')}
+                        className={`px-2 py-1 rounded-lg text-xs font-medium transition-colors ${
+                          filter === timeFilter 
+                            ? "bg-black text-white" 
+                            : "text-gray-600 hover:text-black hover:bg-white"
+                        }`}
+                      >
+                        {filter}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Desktop Layout */}
+            <div className="hidden lg:flex items-center justify-between py-4">
               <div className="flex items-center space-x-4">
                 {activeTab === 'smart-money' ? (
                   <>
@@ -1015,33 +1267,51 @@ const AppPage: React.FC = () => {
               {/* 时间筛选器或Activity双筛选器 */}
               <div className="flex items-center space-x-4">
                 {activeTab === 'following' && followingFilter === 'Activity' ? (
-                                    // Activity页面的双筛选器
-                  <>
-                    {/* 交易类型筛选器 */}
+                                      // Activity页面的双筛选器
+                    <>
+                      {/* 交易类型筛选器 */}
+                      <div className="flex items-center space-x-1 px-3 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
+                        {['Buy', 'Sell', 'Redeem'].map((filter) => (
+                          <button
+                            key={filter}
+                            onClick={() => handleActivityActionFilter(filter as 'Buy' | 'Sell' | 'Redeem')}
+                            className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
+                              filter === activityActionFilter 
+                                ? "bg-black text-white" 
+                                : "text-gray-600 hover:text-black hover:bg-white"
+                            }`}
+                          >
+                            {filter === 'Buy' ? t.buy : filter === 'Sell' ? t.sell : t.redeem}
+                          </button>
+                        ))}
+                      </div>
+                      
+                      {/* 金额筛选器 */}
+                      <div className="flex items-center space-x-1 px-3 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
+                        {['$>100', '$>1k', '$>2k', '$>3k'].map((filter) => (
+                          <button
+                            key={filter}
+                            onClick={() => handleActivityAmountFilter(filter as '$>100' | '$>1k' | '$>2k' | '$>3k')}
+                            className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
+                              filter === activityAmountFilter 
+                                ? "bg-black text-white" 
+                                : "text-gray-600 hover:text-black hover:bg-white"
+                            }`}
+                          >
+                            {filter}
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    // 其他页面的时间筛选器
                     <div className="flex items-center space-x-1 px-3 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
-                      {['Buy', 'Sell', 'Redeem'].map((filter) => (
+                      {timeFilters.map((filter) => (
                         <button
                           key={filter}
-                          onClick={() => handleActivityActionFilter(filter as 'Buy' | 'Sell' | 'Redeem')}
+                          onClick={() => handleTimeFilter(filter as '1D' | '3D' | '7D' | '30D' | 'All')}
                           className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
-                            filter === activityActionFilter 
-                              ? "bg-black text-white" 
-                              : "text-gray-600 hover:text-black hover:bg-white"
-                          }`}
-                        >
-                          {filter === 'Buy' ? t.buy : filter === 'Sell' ? t.sell : t.redeem}
-                        </button>
-                      ))}
-                    </div>
-                    
-                    {/* 金额筛选器 */}
-                    <div className="flex items-center space-x-1 px-3 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
-                      {['$>100', '$>1k', '$>2k', '$>3k'].map((filter) => (
-                        <button
-                          key={filter}
-                          onClick={() => handleActivityAmountFilter(filter as '$>100' | '$>1k' | '$>2k' | '$>3k')}
-                          className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
-                            filter === activityAmountFilter 
+                            filter === timeFilter 
                               ? "bg-black text-white" 
                               : "text-gray-600 hover:text-black hover:bg-white"
                           }`}
@@ -1050,26 +1320,8 @@ const AppPage: React.FC = () => {
                         </button>
                       ))}
                     </div>
-                  </>
-                ) : (
-                  // 其他页面的时间筛选器
-                  <div className="flex items-center space-x-1 px-3 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
-                    {timeFilters.map((filter) => (
-                      <button
-                        key={filter}
-                        onClick={() => handleTimeFilter(filter as '1D' | '3D' | '7D' | '30D' | 'All')}
-                        className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
-                          filter === timeFilter 
-                            ? "bg-black text-white" 
-                            : "text-gray-600 hover:text-black hover:bg-white"
-                        }`}
-                      >
-                        {filter}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+                  )}
+                </div>
             </div>
           </div>
         </div>
@@ -1197,87 +1449,187 @@ const AppPage: React.FC = () => {
               ))}
             </div>
           ) : (
-            // 原来的交易员排行榜内容
+            // 交易员排行榜内容
             <>
-              {/* Table Header */}
-              <div className="mb-4">
-                <div className="grid grid-cols-18 gap-4 px-6 py-4 text-sm font-medium text-gray-600">
-                  <div className="col-span-4">{t.topHeader}</div>
-                  <div className="col-span-2">{t.tag}</div>
-                  <div className="col-span-2 text-right flex items-center justify-end">
-                    {t.joinedOn}
-                    <SortIcon field="joinedOn" />
-                  </div>
-                  <div className="col-span-2 text-right flex items-center justify-end">
-                    {t.holdingValue}
-                    <SortIcon field="holdingValue" />
-                  </div>
-                  <div className="col-span-2 text-right flex items-center justify-end">
-                    {t.volume}
-                    <SortIcon field="volume" />
-                  </div>
-                  <div className="col-span-2 text-right flex items-center justify-end">
-                    {t.pnl}
-                    <SortIcon field="pnl" />
-                  </div>
-                  <div className="col-span-2 text-right flex items-center justify-end whitespace-nowrap">
-                    {t.returnPercent}
-                    <SortIcon field="return" />
-                  </div>
-                  <div className="col-span-2 text-right">{t.follow}</div>
-                </div>
-              </div>
-
-              {/* Table Body - Individual Cards */}
-              <div className="space-y-3">
+              {/* Mobile Layout */}
+              <div className="lg:hidden space-y-3">
                 {sortedTraders.map((trader, index) => (
                   <div key={trader.id} className="bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors" style={{borderColor: '#F2F2F2'}}>
-                    <div className="grid grid-cols-18 gap-4 px-6 py-4">
-                      {/* Rank and Avatar and Name */}
-                      <div className="col-span-4 flex items-center">
-                        <div className="text-gray-500 text-sm font-medium mr-4 w-6 ml-2">{index + 1}</div>
-                        <div className="relative w-10 h-10 rounded-full overflow-hidden mr-3">
-                          <Image
-                            src={trader.avatar}
-                            alt={trader.name}
-                            fill
-                            className="object-cover"
-                          />
+                    <div className="p-4">
+                      {/* Top Row: Rank + Avatar + Name + Follow */}
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center">
+                          <div className="text-gray-500 text-sm font-medium mr-3 w-6">#{index + 1}</div>
+                          <div className="relative w-8 h-8 rounded-full overflow-hidden mr-3">
+                            <Image
+                              src={trader.avatar}
+                              alt={trader.name}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                          <div>
+                            <div className="font-semibold text-black text-sm">{trader.name}</div>
+                            <div className="text-xs text-gray-500">{trader.address}</div>
+                          </div>
                         </div>
-                        <div>
-                          <div className="font-semibold text-black text-sm">{trader.name}</div>
-                          <div className="text-xs text-gray-500">{trader.address}</div>
+                        <button 
+                          onClick={() => handleFollowToggle(trader.id)}
+                          data-trader-id={trader.id}
+                          className={`group p-1 transition-all duration-300 ease-out transform hover:scale-110 active:scale-95 ${
+                            trader.isFollowing 
+                              ? "text-purple-600 hover:text-purple-700" 
+                              : "text-gray-400 hover:text-purple-600"
+                          }`}
+                        >
+                          <svg 
+                            className={`w-5 h-5 transition-all duration-300 ${
+                              trader.isFollowing 
+                                ? "drop-shadow-md" 
+                                : "group-hover:drop-shadow-md"
+                            }`} 
+                            style={{
+                              filter: trader.isFollowing 
+                                ? 'drop-shadow(0 2px 4px rgba(147, 51, 234, 0.3))' 
+                                : undefined
+                            }}
+                            fill="currentColor" 
+                            viewBox="0 0 20 20"
+                          >
+                            {trader.isFollowing ? (
+                              <path 
+                                fillRule="evenodd" 
+                                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" 
+                                clipRule="evenodd"
+                                className="transition-all duration-300 love-pulse"
+                              />
+                            ) : (
+                              <path 
+                                fillRule="evenodd" 
+                                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" 
+                                clipRule="evenodd"
+                                className="transition-all duration-300 group-hover:animate-pulse"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                              />
+                            )}
+                          </svg>
+                        </button>
+                      </div>
+
+                      {/* Tags Row */}
+                      <div className="flex items-center gap-1 mb-3 flex-wrap">
+                        {trader.tags.map((tag, tagIndex) => (
+                          <span
+                            key={tagIndex}
+                            className={`px-2 py-0.5 rounded text-xs font-medium whitespace-nowrap ${
+                              tag === "Crypto" ? "bg-orange-100 text-orange-700" :
+                              tag === "Sports" ? "bg-green-100 text-green-700" :
+                              tag === "Politics" ? "bg-blue-100 text-blue-700" :
+                              "bg-gray-100 text-gray-700"
+                            }`}
+                          >
+                            {tag === "Crypto" && "💰 "}
+                            {tag === "Sports" && "⚽ "}
+                            {tag === "Politics" && "🏛️ "}
+                            {translateTag(tag)}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Stats Grid */}
+                      <div className="grid grid-cols-2 gap-3 text-xs">
+                        <div className="bg-gray-50 rounded p-2">
+                          <div className="text-gray-500 mb-1">{t.holdingValue}</div>
+                          <div className="font-semibold text-gray-900">{trader.holdingValue}</div>
+                        </div>
+                        <div className="bg-gray-50 rounded p-2">
+                          <div className="text-gray-500 mb-1">{t.volume}</div>
+                          <div className="font-semibold text-gray-900">{trader.volume}</div>
+                        </div>
+                        <div className="bg-gray-50 rounded p-2">
+                          <div className="text-gray-500 mb-1">{t.pnl}</div>
+                          <div className={`font-semibold ${getValueStyle(trader.pnl)}`}>{trader.pnl}</div>
+                        </div>
+                        <div className="bg-gray-50 rounded p-2">
+                          <div className="text-gray-500 mb-1">{t.returnPercent}</div>
+                          <div className={`font-bold ${getValueStyle(trader.return)}`}>{trader.return}</div>
                         </div>
                       </div>
 
-                      {/* Tags */}
-                      <div className="col-span-2 flex items-center">
-                        <div className="flex flex-col gap-1 min-h-[40px] justify-center">
-                          {/* First row - up to 2 tags */}
-                          <div className="flex gap-1">
-                            {trader.tags.slice(0, 2).map((tag, tagIndex) => (
-                              <span
-                                key={tagIndex}
-                                className={`px-2 py-0.5 rounded text-xs font-medium whitespace-nowrap ${
-                                  tag === "Crypto" ? "bg-orange-100 text-orange-700" :
-                                  tag === "Sports" ? "bg-green-100 text-green-700" :
-                                  tag === "Politics" ? "bg-blue-100 text-blue-700" :
-                                  "bg-gray-100 text-gray-700"
-                                }`}
-                              >
-                                {tag === "Crypto" && "💰 "}
-                                {tag === "Sports" && "⚽ "}
-                                {tag === "Politics" && "🏛️ "}
-                                {translateTag(tag)}
-                              </span>
-                            ))}
+                      {/* Bottom Info */}
+                      <div className="flex justify-between items-center mt-3 pt-3 border-t border-gray-100">
+                        <div className="text-xs text-gray-500">
+                          {t.joinedOn}: {trader.joinedOn}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Desktop Layout */}
+              <div className="hidden lg:block">
+                {/* Table Header */}
+                <div className="mb-4">
+                  <div className="grid grid-cols-18 gap-4 px-6 py-4 text-sm font-medium text-gray-600">
+                    <div className="col-span-4">{t.topHeader}</div>
+                    <div className="col-span-2">{t.tag}</div>
+                    <div className="col-span-2 text-right flex items-center justify-end">
+                      {t.joinedOn}
+                      <SortIcon field="joinedOn" />
+                    </div>
+                    <div className="col-span-2 text-right flex items-center justify-end">
+                      {t.holdingValue}
+                      <SortIcon field="holdingValue" />
+                    </div>
+                    <div className="col-span-2 text-right flex items-center justify-end">
+                      {t.volume}
+                      <SortIcon field="volume" />
+                    </div>
+                    <div className="col-span-2 text-right flex items-center justify-end">
+                      {t.pnl}
+                      <SortIcon field="pnl" />
+                    </div>
+                    <div className="col-span-2 text-right flex items-center justify-end whitespace-nowrap">
+                      {t.returnPercent}
+                      <SortIcon field="return" />
+                    </div>
+                    <div className="col-span-2 text-right">{t.follow}</div>
+                  </div>
+                </div>
+
+                {/* Table Body - Individual Cards */}
+                <div className="space-y-3">
+                  {sortedTraders.map((trader, index) => (
+                    <div key={trader.id} className="bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors" style={{borderColor: '#F2F2F2'}}>
+                      <div className="grid grid-cols-18 gap-4 px-6 py-4">
+                        {/* Rank and Avatar and Name */}
+                        <div className="col-span-4 flex items-center">
+                          <div className="text-gray-500 text-sm font-medium mr-4 w-6 ml-2">{index + 1}</div>
+                          <div className="relative w-10 h-10 rounded-full overflow-hidden mr-3">
+                            <Image
+                              src={trader.avatar}
+                              alt={trader.name}
+                              fill
+                              className="object-cover"
+                            />
                           </div>
-                          {/* Second row - next tags if they exist */}
-                          {trader.tags.length > 2 && (
+                          <div>
+                            <div className="font-semibold text-black text-sm">{trader.name}</div>
+                            <div className="text-xs text-gray-500">{trader.address}</div>
+                          </div>
+                        </div>
+
+                        {/* Tags */}
+                        <div className="col-span-2 flex items-center">
+                          <div className="flex flex-col gap-1 min-h-[40px] justify-center">
+                            {/* First row - up to 2 tags */}
                             <div className="flex gap-1">
-                              {trader.tags.slice(2, 4).map((tag, tagIndex) => (
+                              {trader.tags.slice(0, 2).map((tag, tagIndex) => (
                                 <span
-                                  key={tagIndex + 2}
+                                  key={tagIndex}
                                   className={`px-2 py-0.5 rounded text-xs font-medium whitespace-nowrap ${
                                     tag === "Crypto" ? "bg-orange-100 text-orange-700" :
                                     tag === "Sports" ? "bg-green-100 text-green-700" :
@@ -1292,88 +1644,109 @@ const AppPage: React.FC = () => {
                                 </span>
                               ))}
                             </div>
-                          )}
+                            {/* Second row - next tags if they exist */}
+                            {trader.tags.length > 2 && (
+                              <div className="flex gap-1">
+                                {trader.tags.slice(2, 4).map((tag, tagIndex) => (
+                                  <span
+                                    key={tagIndex + 2}
+                                    className={`px-2 py-0.5 rounded text-xs font-medium whitespace-nowrap ${
+                                      tag === "Crypto" ? "bg-orange-100 text-orange-700" :
+                                      tag === "Sports" ? "bg-green-100 text-green-700" :
+                                      tag === "Politics" ? "bg-blue-100 text-blue-700" :
+                                      "bg-gray-100 text-gray-700"
+                                    }`}
+                                  >
+                                    {tag === "Crypto" && "💰 "}
+                                    {tag === "Sports" && "⚽ "}
+                                    {tag === "Politics" && "🏛️ "}
+                                    {translateTag(tag)}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </div>
                         </div>
-                      </div>
 
-                      {/* Joined On */}
-                      <div className="col-span-2 flex items-center justify-end">
-                        <span className="text-sm text-gray-900">{trader.joinedOn}</span>
-                      </div>
+                        {/* Joined On */}
+                        <div className="col-span-2 flex items-center justify-end">
+                          <span className="text-sm text-gray-900">{trader.joinedOn}</span>
+                        </div>
 
-                      {/* Holding Value */}
-                      <div className="col-span-2 flex items-center justify-end">
-                        <span className="text-sm font-medium text-gray-900">{trader.holdingValue}</span>
-                      </div>
+                        {/* Holding Value */}
+                        <div className="col-span-2 flex items-center justify-end">
+                          <span className="text-sm font-medium text-gray-900">{trader.holdingValue}</span>
+                        </div>
 
-                      {/* Volume */}
-                      <div className="col-span-2 flex items-center justify-end">
-                        <span className="text-sm font-medium text-gray-900">{trader.volume}</span>
-                      </div>
+                        {/* Volume */}
+                        <div className="col-span-2 flex items-center justify-end">
+                          <span className="text-sm font-medium text-gray-900">{trader.volume}</span>
+                        </div>
 
-                      {/* P&L */}
-                      <div className="col-span-2 flex items-center justify-end">
-                        <span className={`text-sm font-medium ${getValueStyle(trader.pnl)}`}>{trader.pnl}</span>
-                      </div>
+                        {/* P&L */}
+                        <div className="col-span-2 flex items-center justify-end">
+                          <span className={`text-sm font-medium ${getValueStyle(trader.pnl)}`}>{trader.pnl}</span>
+                        </div>
 
-                      {/* Return */}
-                      <div className="col-span-2 flex items-center justify-end">
-                        <span className={`text-sm font-bold ${getValueStyle(trader.return)}`}>{trader.return}</span>
-                      </div>
+                        {/* Return */}
+                        <div className="col-span-2 flex items-center justify-end">
+                          <span className={`text-sm font-bold ${getValueStyle(trader.return)}`}>{trader.return}</span>
+                        </div>
 
-                      {/* Follow Button */}
-                      <div className="col-span-2 flex items-center justify-end">
-                        <div className="mr-2">
-                          <button 
-                            onClick={() => handleFollowToggle(trader.id)}
-                            data-trader-id={trader.id}
-                            className={`group p-1 transition-all duration-300 ease-out transform hover:scale-110 active:scale-95 ${
-                              trader.isFollowing 
-                                ? "text-purple-600 hover:text-purple-700" 
-                                : "text-gray-400 hover:text-purple-600"
-                            }`}
-                          >
-                            <svg 
-                              className={`w-5 h-5 transition-all duration-300 ${
+                        {/* Follow Button */}
+                        <div className="col-span-2 flex items-center justify-end">
+                          <div className="mr-2">
+                            <button 
+                              onClick={() => handleFollowToggle(trader.id)}
+                              data-trader-id={trader.id}
+                              className={`group p-1 transition-all duration-300 ease-out transform hover:scale-110 active:scale-95 ${
                                 trader.isFollowing 
-                                  ? "drop-shadow-md" 
-                                  : "group-hover:drop-shadow-md"
-                              }`} 
-                              style={{
-                                filter: trader.isFollowing 
-                                  ? 'drop-shadow(0 2px 4px rgba(147, 51, 234, 0.3))' 
-                                  : undefined
-                              }}
-                              fill="currentColor" 
-                              viewBox="0 0 20 20"
+                                  ? "text-purple-600 hover:text-purple-700" 
+                                  : "text-gray-400 hover:text-purple-600"
+                              }`}
                             >
-                              {trader.isFollowing ? (
-                                // 已关注状态 - 实心爱心
-                                <path 
-                                  fillRule="evenodd" 
-                                  d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" 
-                                  clipRule="evenodd"
-                                  className="transition-all duration-300 love-pulse"
-                                />
-                              ) : (
-                                // 未关注状态 - 空心爱心
-                                <path 
-                                  fillRule="evenodd" 
-                                  d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" 
-                                  clipRule="evenodd"
-                                  className="transition-all duration-300 group-hover:animate-pulse"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeWidth="1.5"
-                                />
-                              )}
-                            </svg>
-                          </button>
+                              <svg 
+                                className={`w-5 h-5 transition-all duration-300 ${
+                                  trader.isFollowing 
+                                    ? "drop-shadow-md" 
+                                    : "group-hover:drop-shadow-md"
+                                }`} 
+                                style={{
+                                  filter: trader.isFollowing 
+                                    ? 'drop-shadow(0 2px 4px rgba(147, 51, 234, 0.3))' 
+                                    : undefined
+                                }}
+                                fill="currentColor" 
+                                viewBox="0 0 20 20"
+                              >
+                                {trader.isFollowing ? (
+                                  // 已关注状态 - 实心爱心
+                                  <path 
+                                    fillRule="evenodd" 
+                                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" 
+                                    clipRule="evenodd"
+                                    className="transition-all duration-300 love-pulse"
+                                  />
+                                ) : (
+                                  // 未关注状态 - 空心爱心
+                                  <path 
+                                    fillRule="evenodd" 
+                                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" 
+                                    clipRule="evenodd"
+                                    className="transition-all duration-300 group-hover:animate-pulse"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.5"
+                                  />
+                                )}
+                              </svg>
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </>
           )}
