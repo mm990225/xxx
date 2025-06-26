@@ -289,9 +289,9 @@ const UserDetailPage: React.FC = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
           {/* Top Section: User Info + Stats + Chart */}
           <div className="bg-white rounded-xl p-6 mb-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:items-stretch">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:items-stretch">
               {/* Left Column */}
-              <div className="space-y-6 flex flex-col">
+              <div className="space-y-6 flex flex-col lg:col-span-2">
                 {/* Left Top: User Info */}
                 <div className="flex items-start space-x-4">
                   <div className="relative w-16 h-16 flex-shrink-0">
@@ -314,8 +314,10 @@ const UserDetailPage: React.FC = () => {
                         </svg>
                       </button>
                     </div>
-                    <p className="text-sm text-gray-500 mb-1">{mockUserData.address}</p>
-                    <p className="text-sm text-gray-500 mb-3">{mockUserData.joinDate}</p>
+                    <div className="flex items-center space-x-3 mb-3">
+                      <p className="text-sm text-gray-500">{mockUserData.address}</p>
+                      <p className="text-sm text-gray-500">{mockUserData.joinDate}</p>
+                    </div>
                     
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2">
@@ -355,7 +357,7 @@ const UserDetailPage: React.FC = () => {
               </div>
 
               {/* Right Column: Chart + Time Controls */}
-              <div className="h-full flex flex-col">
+              <div className="h-full flex flex-col lg:col-span-1">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex space-x-1">
                     <button
