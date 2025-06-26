@@ -1242,30 +1242,137 @@ const AppPage: React.FC = () => {
             {/* H5移动端排序选择器 - 只在非Activity页面显示 */}
             {!(activeTab === 'following' && followingFilter === 'Activity') && (
               <div className="lg:hidden py-3 border-t border-gray-200">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-gray-700">{t.sortBy}:</span>
-                  <div className="flex items-center space-x-2">
-                    <select 
-                      value={`${sortField}-${sortOrder}`}
-                      onChange={(e) => {
-                        const [field, order] = e.target.value.split('-') as [SortField, SortOrder];
-                        setSortField(field);
-                        setSortOrder(order);
+                <div className="flex items-center space-x-3 overflow-x-auto pb-2">
+                  <span className="text-sm font-medium text-gray-700 flex-shrink-0">{t.sortBy}:</span>
+                  <div className="flex items-center space-x-2 flex-shrink-0">
+                    <button
+                      onClick={() => {
+                        setSortField(null);
+                        setSortOrder('none');
                       }}
-                      className="px-3 py-1 rounded-lg border border-gray-300 text-sm bg-white"
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors whitespace-nowrap ${
+                        sortField === null
+                          ? 'bg-black text-white'
+                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      }`}
                     >
-                      <option value="none-none">{t.sortDefault}</option>
-                      <option value="joinedOn-desc">{t.sortJoinedDesc}</option>
-                      <option value="joinedOn-asc">{t.sortJoinedAsc}</option>
-                      <option value="holdingValue-desc">{t.sortHoldingDesc}</option>
-                      <option value="holdingValue-asc">{t.sortHoldingAsc}</option>
-                      <option value="volume-desc">{t.sortVolumeDesc}</option>
-                      <option value="volume-asc">{t.sortVolumeAsc}</option>
-                      <option value="pnl-desc">{t.sortPnlDesc}</option>
-                      <option value="pnl-asc">{t.sortPnlAsc}</option>
-                      <option value="return-desc">{t.sortReturnDesc}</option>
-                      <option value="return-asc">{t.sortReturnAsc}</option>
-                    </select>
+                      {t.sortDefault}
+                    </button>
+                    
+                    <button
+                      onClick={() => {
+                        if (sortField === 'joinedOn') {
+                          setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc');
+                        } else {
+                          setSortField('joinedOn');
+                          setSortOrder('desc');
+                        }
+                      }}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors whitespace-nowrap flex items-center space-x-1 ${
+                        sortField === 'joinedOn'
+                          ? 'bg-black text-white'
+                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      }`}
+                    >
+                      <span>{language === 'en' ? 'Joined' : '加入时间'}</span>
+                      {sortField === 'joinedOn' && (
+                        <span className="text-xs">
+                          {sortOrder === 'desc' ? '↓' : '↑'}
+                        </span>
+                      )}
+                    </button>
+                    
+                    <button
+                      onClick={() => {
+                        if (sortField === 'holdingValue') {
+                          setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc');
+                        } else {
+                          setSortField('holdingValue');
+                          setSortOrder('desc');
+                        }
+                      }}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors whitespace-nowrap flex items-center space-x-1 ${
+                        sortField === 'holdingValue'
+                          ? 'bg-black text-white'
+                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      }`}
+                    >
+                      <span>{language === 'en' ? 'Holding' : '持仓价值'}</span>
+                      {sortField === 'holdingValue' && (
+                        <span className="text-xs">
+                          {sortOrder === 'desc' ? '↓' : '↑'}
+                        </span>
+                      )}
+                    </button>
+                    
+                    <button
+                      onClick={() => {
+                        if (sortField === 'volume') {
+                          setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc');
+                        } else {
+                          setSortField('volume');
+                          setSortOrder('desc');
+                        }
+                      }}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors whitespace-nowrap flex items-center space-x-1 ${
+                        sortField === 'volume'
+                          ? 'bg-black text-white'
+                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      }`}
+                    >
+                      <span>{language === 'en' ? 'Volume' : '交易量'}</span>
+                      {sortField === 'volume' && (
+                        <span className="text-xs">
+                          {sortOrder === 'desc' ? '↓' : '↑'}
+                        </span>
+                      )}
+                    </button>
+                    
+                    <button
+                      onClick={() => {
+                        if (sortField === 'pnl') {
+                          setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc');
+                        } else {
+                          setSortField('pnl');
+                          setSortOrder('desc');
+                        }
+                      }}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors whitespace-nowrap flex items-center space-x-1 ${
+                        sortField === 'pnl'
+                          ? 'bg-black text-white'
+                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      }`}
+                    >
+                      <span>{language === 'en' ? 'P&L' : '盈亏'}</span>
+                      {sortField === 'pnl' && (
+                        <span className="text-xs">
+                          {sortOrder === 'desc' ? '↓' : '↑'}
+                        </span>
+                      )}
+                    </button>
+                    
+                    <button
+                      onClick={() => {
+                        if (sortField === 'return') {
+                          setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc');
+                        } else {
+                          setSortField('return');
+                          setSortOrder('desc');
+                        }
+                      }}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors whitespace-nowrap flex items-center space-x-1 ${
+                        sortField === 'return'
+                          ? 'bg-black text-white'
+                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      }`}
+                    >
+                      <span>{language === 'en' ? 'Return' : '收益率'}</span>
+                      {sortField === 'return' && (
+                        <span className="text-xs">
+                          {sortOrder === 'desc' ? '↓' : '↑'}
+                        </span>
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>
