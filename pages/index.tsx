@@ -94,12 +94,10 @@ const HomePage: React.FC = () => {
         {/* Header section */}
         <div className="text-center mb-12 sm:mb-16 scale-in-animation">
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-black mb-4 sm:mb-6 leading-tight px-2">
-            Track smart money. Follow Alpha.<br className="hidden sm:block" />
-            <span className="sm:hidden"> </span>Trade smarter.
+            Find and follow smart money on Polymarket.
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto fade-in-up px-4 sm:px-0">
-            Discover hidden alpha from top Polymarket<br className="hidden sm:block" />
-            <span className="sm:hidden"> </span>traders—in real time.
+            Follow top predictors in every field — and become a cross-domain prediction expert yourself.
           </p>
           <a 
             href="/app"

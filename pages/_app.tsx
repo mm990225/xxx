@@ -7,8 +7,8 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         {/* 网站标题和描述 */}
-        <title>PolyAlpha - Track smart money. Follow Alpha. Trade smarter.</title>
-        <meta name="description" content="Discover hidden alpha from top Polymarket traders—in real time. Track smart money and follow alpha to trade smarter." />
+        <title>Discover Polymarket smart money</title>
+        <meta name="description" content="Find and follow smart money on Polymarket. Follow top predictors in every field — and become a cross-domain prediction expert yourself." />
         
         {/* Favicon配置 */}
         <link rel="icon" href="/images/logo.png" />
@@ -31,8 +31,8 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="author" content="PolyAlpha" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="PolyAlpha - Track smart money. Follow Alpha." />
-        <meta property="og:description" content="Discover hidden alpha from top Polymarket traders—in real time." />
+        <meta property="og:title" content="Discover Polymarket smart money" />
+        <meta property="og:description" content="Find and follow smart money on Polymarket. Follow top predictors in every field — and become a cross-domain prediction expert yourself." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.polyalpha.fun/" />
         <meta property="og:image" content="https://www.polyalpha.fun/images/logo.png" />
