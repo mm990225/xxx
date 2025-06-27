@@ -407,7 +407,7 @@ const UserDetailPage: React.FC = () => {
               <div className="flex">
                 <button
                   onClick={() => setActiveTab('positions')}
-                  className={`flex-1 py-4 px-6 text-sm font-medium text-center ${
+                  className={`py-4 px-6 text-sm font-medium ${
                     activeTab === 'positions'
                       ? 'text-blue-600 border-b-2 border-blue-600'
                       : 'text-gray-500 hover:text-gray-700'
@@ -417,7 +417,7 @@ const UserDetailPage: React.FC = () => {
                 </button>
                 <button
                   onClick={() => setActiveTab('activity')}
-                  className={`flex-1 py-4 px-6 text-sm font-medium text-center ${
+                  className={`py-4 px-6 text-sm font-medium ${
                     activeTab === 'activity'
                       ? 'text-blue-600 border-b-2 border-blue-600'
                       : 'text-gray-500 hover:text-gray-700'
