@@ -731,38 +731,93 @@ const UserDetailPage: React.FC = () => {
             {/* Left Column */}
             <div className="space-y-6 flex flex-col lg:col-span-3">
               {/* User Info */}
-              <div className="flex items-center space-x-4 bg-white border border-gray-300 rounded-lg p-6 h-40" style={{borderColor: '#F2F2F2'}}>
-                <div className="relative w-20 h-20 flex-shrink-0">
-                  <Image
-                    src={mockUserData.avatar}
-                    alt={mockUserData.name}
-                    fill
-                    className="object-cover rounded-full"
-                  />
+              <div className="bg-white border border-gray-300 rounded-lg p-6" style={{borderColor: '#F2F2F2'}}>
+                {/* Desktop Layout */}
+                <div className="hidden lg:flex items-center space-x-4 h-40">
+                  <div className="relative w-20 h-20 flex-shrink-0">
+                    <Image
+                      src={mockUserData.avatar}
+                      alt={mockUserData.name}
+                      fill
+                      className="object-cover rounded-full"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0 flex flex-col justify-between h-20">
+                    <div className="flex items-center justify-between">
+                      <h1 className="text-xl font-bold text-black truncate">{mockUserData.name}</h1>
+                      <button
+                        onClick={() => setIsFollowed(!isFollowed)}
+                        className="flex-shrink-0 ml-2"
+                      >
+                        <svg className={`w-6 h-6 ${isFollowed ? 'text-purple-500' : 'text-gray-400'}`} fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                      </button>
+                    </div>
+                    
+                    <div className="flex items-center space-x-3">
+                      <p className="text-sm text-gray-500">{mockUserData.address}</p>
+                      <p className="text-sm text-gray-500">{mockUserData.joinDate}</p>
+                    </div>
+                    
+                    <div className="flex flex-wrap gap-2">
+                      {mockUserData.tags.map((tag, index) => (
+                        <span
+                          key={index}
+                          className={`px-2 py-1 rounded text-xs font-medium whitespace-nowrap ${
+                            tag === "Crypto" ? "bg-orange-100 text-orange-700" :
+                            tag === "Sports" ? "bg-green-100 text-green-700" :
+                            tag === "Politics" ? "bg-blue-100 text-blue-700" :
+                            "bg-gray-100 text-gray-700"
+                          }`}
+                        >
+                          {tag === "Crypto" && "💰 "}
+                          {tag === "Sports" && "⚽ "}
+                          {tag === "Politics" && "🏛️ "}
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <div className="flex-1 min-w-0 flex flex-col justify-between h-20">
-                  <div className="flex items-center justify-between">
-                    <h1 className="text-xl font-bold text-black truncate">{mockUserData.name}</h1>
-                    <button
-                      onClick={() => setIsFollowed(!isFollowed)}
-                      className="flex-shrink-0 ml-2"
-                    >
-                      <svg className={`w-6 h-6 ${isFollowed ? 'text-purple-500' : 'text-gray-400'}`} fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                      </svg>
-                    </button>
+                
+                {/* Mobile Layout */}
+                <div className="lg:hidden">
+                  <div className="flex items-start space-x-3 mb-4">
+                    <div className="relative w-16 h-16 flex-shrink-0">
+                      <Image
+                        src={mockUserData.avatar}
+                        alt={mockUserData.name}
+                        fill
+                        className="object-cover rounded-full"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between mb-2">
+                        <h1 className="text-lg font-bold text-black truncate">{mockUserData.name}</h1>
+                        <button
+                          onClick={() => setIsFollowed(!isFollowed)}
+                          className="flex-shrink-0 ml-2"
+                        >
+                          <svg className={`w-5 h-5 ${isFollowed ? 'text-purple-500' : 'text-gray-400'}`} fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                          </svg>
+                        </button>
+                      </div>
+                      
+                      <div className="flex flex-col space-y-2 text-xs text-gray-500 mb-3">
+                        <span>{mockUserData.address}</span>
+                        <span>{mockUserData.joinDate}</span>
+                      </div>
+                    </div>
                   </div>
                   
-                  <div className="flex items-center space-x-3">
-                    <p className="text-sm text-gray-500">{mockUserData.address}</p>
-                    <p className="text-sm text-gray-500">{mockUserData.joinDate}</p>
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-2">
+                  {/* Tags Row - Three tags in a row */}
+                  <div className="flex gap-2">
                     {mockUserData.tags.map((tag, index) => (
                       <span
                         key={index}
-                        className={`px-2 py-1 rounded text-xs font-medium whitespace-nowrap ${
+                        className={`flex-1 text-center px-2 py-1 rounded text-xs font-medium whitespace-nowrap ${
                           tag === "Crypto" ? "bg-orange-100 text-orange-700" :
                           tag === "Sports" ? "bg-green-100 text-green-700" :
                           tag === "Politics" ? "bg-blue-100 text-blue-700" :
@@ -910,8 +965,8 @@ const UserDetailPage: React.FC = () => {
               </div>
 
               {/* Mobile Chart Controls */}
-              <div className="lg:hidden space-y-2 mb-4">
-                <div className="flex items-center justify-center">
+              <div className="lg:hidden space-y-2 mb-2 mt-2">
+                <div className="flex items-center justify-start">
                   <div className="flex items-center space-x-1 px-2 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
                     <button 
                       onClick={() => setChartType('total')}
@@ -936,7 +991,7 @@ const UserDetailPage: React.FC = () => {
                   </div>
                 </div>
                 
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-start">
                   <div className="flex items-center space-x-1 px-2 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
                     {(['1D', '3D', '30D', 'All'] as const).map((period) => (
                       <button
@@ -1019,7 +1074,7 @@ const UserDetailPage: React.FC = () => {
               {/* Table Rows */}
               <div className="space-y-3">
                 {getSortedActivities().map((activity) => (
-                  <div key={activity.id} className="bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors" style={{borderColor: '#F2F2F2'}}>
+                  <div key={activity.id} className="bg-white border border-gray-300 rounded-lg transition-colors" style={{borderColor: '#F2F2F2'}}>
                     {/* Desktop Layout */}
                     <div className="hidden lg:grid lg:grid-cols-18 gap-4 px-6 py-4">
                       <div className="col-span-8 flex items-center space-x-3">
@@ -1059,7 +1114,7 @@ const UserDetailPage: React.FC = () => {
 
                     {/* Mobile Layout */}
                     <div className="lg:hidden p-4">
-                      {/* 第一行：事件头像 + 市场信息 + 收益率 */}
+                      {/* 第一行：事件头像 + 市场信息 */}
                       <div className="flex items-center mb-3">
                         <div className="relative w-10 h-10 flex-shrink-0 mr-3">
                           <Image
@@ -1075,17 +1130,17 @@ const UserDetailPage: React.FC = () => {
                             {activity.position}
                           </span>
                         </div>
-                        <div className="text-right ml-2">
-                          <div className="text-xs text-gray-500">{t.returnRate}</div>
-                          <div className="text-sm font-medium text-green-600">{activity.return}</div>
-                        </div>
                       </div>
 
-                      {/* 第二行：数据网格 */}
-                      <div className="grid grid-cols-3 gap-3 mb-3">
+                      {/* 第二行：4列数据网格 */}
+                      <div className="grid grid-cols-2 gap-2 mb-3">
                         <div className="bg-gray-50 rounded p-2">
                           <div className="text-xs text-gray-500">{t.avgPrice}</div>
                           <div className="text-sm font-medium text-gray-900">{activity.price}</div>
+                        </div>
+                        <div className="bg-gray-50 rounded p-2">
+                          <div className="text-xs text-gray-500">{t.returnRate}</div>
+                          <div className="text-sm font-medium text-green-600">{activity.return}</div>
                         </div>
                         <div className="bg-gray-50 rounded p-2">
                           <div className="text-xs text-gray-500">{t.quantity}</div>
@@ -1154,10 +1209,10 @@ const UserDetailPage: React.FC = () => {
                 {/* Mobile筛选器 */}
                 <div className="lg:hidden space-y-3">
                   {/* 交易类型筛选器 */}
-                  <div className="flex items-center justify-center">
+                  <div className="flex items-center justify-start">
                     <div className="flex items-center space-x-1 px-2 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
                       {['Buy', 'Sell', 'Redeem'].map((filter) => (
-                                                  <button
+                        <button
                           key={filter}
                           onClick={() => handleActivityActionFilter(filter as 'Buy' | 'Sell' | 'Redeem')}
                           className={`px-2 py-1 rounded-lg text-xs font-medium transition-colors ${
@@ -1173,7 +1228,7 @@ const UserDetailPage: React.FC = () => {
                   </div>
                   
                   {/* 金额筛选器 */}
-                  <div className="flex items-center justify-center">
+                  <div className="flex items-center justify-start">
                     <div className="flex items-center space-x-1 px-2 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
                       {(['$>100', '$>1k', '$>2k', '$>3k'] as const).map((filter) => (
                         <button
