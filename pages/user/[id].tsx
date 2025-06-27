@@ -324,15 +324,16 @@ const UserDetailPage: React.FC = () => {
                       {mockUserData.tags.map((tag, index) => (
                         <span
                           key={index}
-                          className="px-2 py-1 text-xs font-medium rounded-full flex items-center"
-                          style={{
-                            backgroundColor: tag === 'Crypto' ? '#FFF3CD' : tag === 'Sports' ? '#FFE5B4' : '#E3F2FD',
-                            color: tag === 'Crypto' ? '#856404' : tag === 'Sports' ? '#E6A23C' : '#1976D2'
-                          }}
+                          className={`px-2 py-1 rounded text-xs font-medium whitespace-nowrap ${
+                            tag === "Crypto" ? "bg-orange-100 text-orange-700" :
+                            tag === "Sports" ? "bg-green-100 text-green-700" :
+                            tag === "Politics" ? "bg-blue-100 text-blue-700" :
+                            "bg-gray-100 text-gray-700"
+                          }`}
                         >
-                          <span className="mr-1">
-                            {tag === 'Crypto' ? '₿' : tag === 'Sports' ? '⚽' : '🗳️'}
-                          </span>
+                          {tag === "Crypto" && "💰 "}
+                          {tag === "Sports" && "⚽ "}
+                          {tag === "Politics" && "🏛️ "}
                           {tag}
                         </span>
                       ))}
@@ -359,28 +360,29 @@ const UserDetailPage: React.FC = () => {
               {/* Right Column: Chart + Time Controls */}
               <div className="h-full flex flex-col lg:col-span-1">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="flex space-x-1">
+                  {/* 总价值/收益切换按钮 */}
+                  <div className="flex items-center space-x-1 px-3 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
                     <button
-                      className="px-3 py-1 rounded text-sm font-medium text-white"
-                      style={{ backgroundColor: '#1026D2' }}
+                      className="px-3 py-1 rounded-lg text-sm font-medium transition-colors bg-black text-white"
                     >
                       总价值
                     </button>
-                    <button className="px-3 py-1 rounded text-sm font-medium text-gray-600 hover:bg-gray-100">
+                    <button className="px-3 py-1 rounded-lg text-sm font-medium transition-colors text-gray-600 hover:text-black hover:bg-white">
                       收益
                     </button>
                   </div>
-                  <div className="flex space-x-1">
+                  
+                  {/* 时间筛选按钮 */}
+                  <div className="flex items-center space-x-1 px-3 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
                     {(['1D', '3D', '30D', 'All'] as const).map((period) => (
                       <button
                         key={period}
                         onClick={() => setTimeFilter(period)}
-                        className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
+                        className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
                           timeFilter === period
-                            ? 'text-white'
-                            : 'text-gray-600 hover:bg-gray-100'
+                            ? 'bg-black text-white'
+                            : 'text-gray-600 hover:text-black hover:bg-white'
                         }`}
-                        style={timeFilter === period ? { backgroundColor: '#000' } : {}}
                       >
                         {period}
                       </button>
