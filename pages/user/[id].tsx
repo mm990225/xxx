@@ -419,7 +419,7 @@ const UserDetailPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           {/* Top Section: User Info + Stats + Chart */}
           <div className="bg-white rounded-xl p-6 mb-6">
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:items-stretch">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:items-stretch" style={{minHeight: '480px'}}>
               {/* Left Column */}
               <div className="space-y-6 flex flex-col lg:col-span-3">
                 {/* Left Top: User Info */}
@@ -609,15 +609,13 @@ const UserDetailPage: React.FC = () => {
                           <div className="text-center text-sm text-gray-900">{activity.price}</div>
                           <div className="text-center text-sm text-gray-900">{activity.shares}</div>
                           <div className="text-center text-sm font-medium text-gray-900">{activity.amount}</div>
-                          <div className="text-center">
-                            <div className="flex items-center justify-center space-x-2">
-                              <span className="text-sm font-medium text-green-600">{activity.return}</span>
-                              <button 
-                                className="px-3 py-1.5 rounded-lg text-xs font-medium transition-colors bg-black text-white hover:bg-gray-800"
-                              >
-                                Copy Trade
-                              </button>
-                            </div>
+                          <div className="flex items-center justify-center">
+                            <span className="text-sm font-medium text-green-600 mr-3">{activity.return}</span>
+                            <button 
+                              className="px-3 py-1.5 rounded-lg text-xs font-medium transition-colors bg-black text-white hover:bg-gray-800"
+                            >
+                              Copy Trade
+                            </button>
                           </div>
                         </div>
                       </div>
