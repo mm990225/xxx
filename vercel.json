@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "pages/user/[id].tsx": {
+      "includeFiles": "pages/**"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/user/:id",
+      "destination": "/user/[id]"
+    }
+  ]
+} 
