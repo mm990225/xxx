@@ -28,34 +28,67 @@ const mockUserData = {
       market: 'Iran agrees to end enrichment of uranium before August?',
       position: 'Yes',
       shares: '2323 Shares',
-      amount: '$3523535',
+      amount: '$3,523,535',
       return: '+2342%',
       image: '/images/event-korea-election.png'
     },
     {
       id: 2,
-      market: 'Iran agrees to end enrichment of uranium before August?',
-      position: 'Yes',
-      shares: '2323 Shares',
-      amount: '$3523535',
-      return: '+2342%',
+      market: 'Trump wins 2024 US Presidential Election?',
+      position: 'No',
+      shares: '1567 Shares',
+      amount: '$892,431',
+      return: '+156%',
       image: '/images/event-korea-election.png'
     },
     {
       id: 3,
-      market: 'Iran agrees to end enrichment of uranium before August?',
+      market: 'Bitcoin reaches $100k before December 2024?',
       position: 'Yes',
-      shares: '2323 Shares',
-      amount: '$3523535',
-      return: '+2342%',
+      shares: '4891 Shares',
+      amount: '$2,164,789',
+      return: '+847%',
+      image: '/images/event-korea-election.png'
+    },
+    {
+      id: 4,
+      market: 'Apple stock price above $200 in Q1 2025?',
+      position: 'Yes',
+      shares: '775 Shares',
+      amount: '$156,234',
+      return: '+34%',
+      image: '/images/event-korea-election.png'
+    },
+    {
+      id: 5,
+      market: 'ChatGPT-5 released before June 2024?',
+      position: 'No',
+      shares: '3421 Shares',
+      amount: '$1,789,123',
+      return: '+623%',
       image: '/images/event-korea-election.png'
     }
   ]
 };
 
-// Generate random chart data
+// Generate smoother chart data with smaller fluctuations
 const generateChartData = () => {
-  return Array.from({ length: 100 }, () => Math.random() * 200);
+  const baseValue = 150; // 基准值
+  const data = [];
+  let currentValue = baseValue;
+  
+  for (let i = 0; i < 100; i++) {
+    // 使用更小的波动范围和趋势
+    const variation = (Math.random() - 0.5) * 8; // 减小波动范围到±4
+    const trend = Math.sin(i / 20) * 5; // 添加缓慢的趋势波动
+    
+    currentValue += variation + trend * 0.1;
+    // 限制在合理范围内
+    currentValue = Math.max(120, Math.min(180, currentValue));
+    data.push(currentValue);
+  }
+  
+  return data;
 };
 
 const UserDetailPage: React.FC = () => {
@@ -496,7 +529,7 @@ const UserDetailPage: React.FC = () => {
                         持仓价值
                         <SortIcon field="value" />
                       </div>
-                      <div className="text-right flex items-center justify-end">
+                      <div className="text-left flex items-center">
                         收益率
                         <SortIcon field="return" />
                       </div>
@@ -527,7 +560,7 @@ const UserDetailPage: React.FC = () => {
                           <div className="text-right text-sm text-gray-900">84¢</div>
                           <div className="text-right text-sm text-gray-900">{activity.shares}</div>
                           <div className="text-right text-sm font-medium text-gray-900">{activity.amount}</div>
-                          <div className="text-right">
+                          <div className="flex items-center">
                             <span className="text-sm font-medium text-green-600">{activity.return}</span>
                             <button 
                               className="ml-2 px-3 py-1 text-xs font-medium text-white rounded"
