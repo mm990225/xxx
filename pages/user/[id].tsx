@@ -30,6 +30,7 @@ const mockUserData = {
       shares: '2323 Shares',
       amount: '$3,523,535',
       return: '+2342%',
+      price: '84¢',
       image: '/images/event-korea-election.png'
     },
     {
@@ -39,6 +40,7 @@ const mockUserData = {
       shares: '1567 Shares',
       amount: '$892,431',
       return: '+156%',
+      price: '57¢',
       image: '/images/event-korea-election.png'
     },
     {
@@ -48,6 +50,7 @@ const mockUserData = {
       shares: '4891 Shares',
       amount: '$2,164,789',
       return: '+847%',
+      price: '44¢',
       image: '/images/event-korea-election.png'
     },
     {
@@ -57,6 +60,7 @@ const mockUserData = {
       shares: '775 Shares',
       amount: '$156,234',
       return: '+34%',
+      price: '20¢',
       image: '/images/event-korea-election.png'
     },
     {
@@ -66,6 +70,7 @@ const mockUserData = {
       shares: '3421 Shares',
       amount: '$1,789,123',
       return: '+623%',
+      price: '76¢',
       image: '/images/event-korea-election.png'
     }
   ]
@@ -105,6 +110,50 @@ const UserDetailPage: React.FC = () => {
   const [sortOrder, setSortOrder] = useState<SortOrder>('none');
 
   const chartData = generateChartData();
+
+  // 排序数据逻辑
+  const getSortedActivities = () => {
+    if (!sortField || sortOrder === 'none') {
+      return mockUserData.activities;
+    }
+
+    const sorted = [...mockUserData.activities].sort((a, b) => {
+      let aValue: number, bValue: number;
+
+      switch (sortField) {
+        case 'price':
+          // 解析价格 "84¢" -> 84
+          aValue = parseFloat(a.price?.replace(/[¢]/g, '') || '0');
+          bValue = parseFloat(b.price?.replace(/[¢]/g, '') || '0');
+          break;
+        case 'quantity':
+          // 解析份额数量 "2323 Shares" -> 2323
+          aValue = parseInt(a.shares.replace(/[^\d]/g, ''));
+          bValue = parseInt(b.shares.replace(/[^\d]/g, ''));
+          break;
+        case 'value':
+          // 解析金额 "$3,523,535" -> 3523535
+          aValue = parseFloat(a.amount.replace(/[\$,]/g, ''));
+          bValue = parseFloat(b.amount.replace(/[\$,]/g, ''));
+          break;
+        case 'return':
+          // 解析收益率 "+2342%" -> 2342
+          aValue = parseFloat(a.return.replace(/[+%]/g, ''));
+          bValue = parseFloat(b.return.replace(/[+%]/g, ''));
+          break;
+        default:
+          return 0;
+      }
+
+      if (sortOrder === 'asc') {
+        return aValue - bValue;
+      } else {
+        return bValue - aValue;
+      }
+    });
+
+    return sorted;
+  };
 
   // 排序处理函数
   const handleSort = (field: SortField) => {
@@ -517,19 +566,19 @@ const UserDetailPage: React.FC = () => {
                   <div className="mb-4">
                     <div className="grid grid-cols-5 gap-4 px-6 py-4 text-sm font-medium text-gray-600">
                       <div>Market</div>
-                      <div className="text-right flex items-center justify-end">
+                      <div className="text-center flex items-center justify-center">
                         均价
                         <SortIcon field="price" />
                       </div>
-                      <div className="text-right flex items-center justify-end">
+                      <div className="text-center flex items-center justify-center">
                         持仓数量
                         <SortIcon field="quantity" />
                       </div>
-                      <div className="text-right flex items-center justify-end">
+                      <div className="text-center flex items-center justify-center">
                         持仓价值
                         <SortIcon field="value" />
                       </div>
-                      <div className="text-left flex items-center">
+                      <div className="text-center flex items-center justify-center">
                         收益率
                         <SortIcon field="return" />
                       </div>
@@ -538,7 +587,7 @@ const UserDetailPage: React.FC = () => {
 
                   {/* Table Rows */}
                   <div className="space-y-3">
-                    {mockUserData.activities.map((activity) => (
+                    {getSortedActivities().map((activity) => (
                       <div key={activity.id} className="bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors" style={{borderColor: '#F2F2F2'}}>
                         <div className="grid grid-cols-5 gap-4 px-6 py-4">
                           <div className="flex items-center space-x-3">
@@ -557,17 +606,18 @@ const UserDetailPage: React.FC = () => {
                               </span>
                             </div>
                           </div>
-                          <div className="text-right text-sm text-gray-900">84¢</div>
-                          <div className="text-right text-sm text-gray-900">{activity.shares}</div>
-                          <div className="text-right text-sm font-medium text-gray-900">{activity.amount}</div>
-                          <div className="flex items-center">
-                            <span className="text-sm font-medium text-green-600">{activity.return}</span>
-                            <button 
-                              className="ml-2 px-3 py-1 text-xs font-medium text-white rounded"
-                              style={{ backgroundColor: '#1026D2' }}
-                            >
-                              Copy Trade
-                            </button>
+                          <div className="text-center text-sm text-gray-900">{activity.price}</div>
+                          <div className="text-center text-sm text-gray-900">{activity.shares}</div>
+                          <div className="text-center text-sm font-medium text-gray-900">{activity.amount}</div>
+                          <div className="text-center">
+                            <div className="flex items-center justify-center space-x-2">
+                              <span className="text-sm font-medium text-green-600">{activity.return}</span>
+                              <button 
+                                className="px-3 py-1.5 rounded-lg text-xs font-medium transition-colors bg-black text-white hover:bg-gray-800"
+                              >
+                                Copy Trade
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
