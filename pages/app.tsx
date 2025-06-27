@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -67,6 +67,14 @@ const AppPage: React.FC = () => {
 
   // 语言切换状态
   const [language, setLanguage] = useState<'en' | 'zh'>('en');
+
+  // 初始化语言设置
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('polyalpha-language') as 'en' | 'zh';
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
 
   // 翻译对象
   const t = {
@@ -739,6 +747,7 @@ const AppPage: React.FC = () => {
       <Head>
         <title>{language === 'en' ? 'PolyAlpha App - Smart Money Tracker' : 'PolyAlpha应用 - 聪明钱追踪器'}</title>
         <meta name="description" content="Track and follow top Polymarket traders in real-time" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
         <style jsx>{`
           @keyframes heartbeat {
             0% { transform: scale(1); }
@@ -795,7 +804,11 @@ const AppPage: React.FC = () => {
                   
                   {/* Language Toggle */}
                   <button 
-                    onClick={() => setLanguage(language === 'en' ? 'zh' : 'en')}
+                    onClick={() => {
+                      const newLanguage = language === 'en' ? 'zh' : 'en';
+                      setLanguage(newLanguage);
+                      localStorage.setItem('polyalpha-language', newLanguage);
+                    }}
                     className="px-2 py-1 rounded text-xs font-medium text-gray-600 hover:text-black hover:bg-gray-100 transition-colors border border-gray-300"
                   >
                     {language === 'en' ? '中文' : 'EN'}
@@ -943,7 +956,11 @@ const AppPage: React.FC = () => {
                 
                 {/* Language Toggle */}
                 <button 
-                  onClick={() => setLanguage(language === 'en' ? 'zh' : 'en')}
+                  onClick={() => {
+                    const newLanguage = language === 'en' ? 'zh' : 'en';
+                    setLanguage(newLanguage);
+                    localStorage.setItem('polyalpha-language', newLanguage);
+                  }}
                   className="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:text-black hover:bg-gray-100 transition-colors border border-gray-300"
                 >
                   {language === 'en' ? '中文' : 'EN'}

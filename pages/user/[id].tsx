@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -298,6 +298,14 @@ const UserDetailPage: React.FC = () => {
   const [timeFilter, setTimeFilter] = useState('1D');
   const [isFollowed, setIsFollowed] = useState(mockUserData.isFollowed);
   const [language, setLanguage] = useState<'en' | 'zh'>('zh'); // 默认中文
+
+  // 初始化语言设置
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('polyalpha-language') as 'en' | 'zh';
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
   
   // Activity页面的筛选状态
   const [activityActionFilter, setActivityActionFilter] = useState<'Buy' | 'Sell' | 'Redeem' | null>(null);
@@ -337,7 +345,9 @@ const UserDetailPage: React.FC = () => {
 
   // 处理语言切换
   const handleLanguageToggle = () => {
-    setLanguage(language === 'en' ? 'zh' : 'en');
+    const newLanguage = language === 'en' ? 'zh' : 'en';
+    setLanguage(newLanguage);
+    localStorage.setItem('polyalpha-language', newLanguage);
   };
 
   // 根据图表类型和时间筛选器生成图表数据，但不受表格排序影响
@@ -553,6 +563,7 @@ const UserDetailPage: React.FC = () => {
       <Head>
         <title>PolyAlpha - Discover Polymarket smart money</title>
         <meta name="description" content="Find and follow smart money on Polymarket. Follow top predictors in every field — and become a cross-domain prediction expert yourself." />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
       </Head>
       
       <div className="min-h-screen bg-white">
@@ -965,8 +976,9 @@ const UserDetailPage: React.FC = () => {
               </div>
 
               {/* Mobile Chart Controls */}
-              <div className="lg:hidden space-y-2 mb-4" style={{paddingTop: '15px', paddingLeft: '15px', paddingRight: '15px'}}>
-                <div className="flex items-center justify-start">
+              <div className="lg:hidden mb-4" style={{paddingTop: '8px', paddingLeft: '15px', paddingRight: '15px'}}>
+                <div className="flex items-center justify-between">
+                  {/* 左侧：总价值/收益筛选器 */}
                   <div className="flex items-center space-x-1 px-2 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
                     <button 
                       onClick={() => setChartType('total')}
@@ -989,9 +1001,8 @@ const UserDetailPage: React.FC = () => {
                       {t.profit}
                     </button>
                   </div>
-                </div>
-                
-                <div className="flex items-center justify-start">
+                  
+                  {/* 右侧：时间筛选器 */}
                   <div className="flex items-center space-x-1 px-2 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
                     {(['1D', '3D', '30D', 'All'] as const).map((period) => (
                       <button
