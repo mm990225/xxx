@@ -921,7 +921,7 @@ const UserDetailPage: React.FC = () => {
             </div>
 
             {/* Right Column: Chart */}
-            <div className="flex flex-col lg:col-span-2 bg-white border border-gray-300 rounded-lg" style={{height: '260px', padding: '24px 10px 10px 10px', borderColor: '#F2F2F2'}}>
+            <div className="flex flex-col lg:col-span-2 bg-white border border-gray-300 rounded-lg h-full" style={{padding: '24px 10px 10px 10px', borderColor: '#F2F2F2'}}>
               {/* Desktop Chart Controls */}
               <div className="hidden lg:flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-1 px-3 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>

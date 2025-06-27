@@ -1095,8 +1095,8 @@ const AppPage: React.FC = () => {
                       </div>
                     </div>
                   </>
-                ) : (
-                  // 其他页面的时间筛选器
+                ) : activeTab === 'smart-money' ? (
+                  // Smart Money页面的时间筛选器
                   <div className="flex items-center space-x-1 px-2 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
                     {timeFilters.map((filter) => (
                       <button
@@ -1112,7 +1112,7 @@ const AppPage: React.FC = () => {
                       </button>
                     ))}
                   </div>
-                )}
+                ) : null}
               </div>
             </div>
 
@@ -1240,8 +1240,8 @@ const AppPage: React.FC = () => {
                         ))}
                       </div>
                     </>
-                  ) : (
-                    // 其他页面的时间筛选器
+                  ) : activeTab === 'smart-money' ? (
+                    // Smart Money页面的时间筛选器
                     <div className="flex items-center space-x-1 px-3 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
                       {timeFilters.map((filter) => (
                         <button
@@ -1257,7 +1257,7 @@ const AppPage: React.FC = () => {
                         </button>
                       ))}
                     </div>
-                  )}
+                  ) : null}
                 </div>
             </div>
 
@@ -1404,8 +1404,42 @@ const AppPage: React.FC = () => {
 
         {/* Main Content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          {/* 显示不同的内容基于当前的过滤器 */}
-          {activeTab === 'following' && followingFilter === 'Activity' ? (
+          {/* Copy Trade Coming Soon页面 */}
+          {activeTab === 'copytrade' ? (
+            <div className="flex flex-col items-center justify-center py-20">
+              <div className="text-center max-w-md mx-auto">
+                {/* Coming Soon图标 */}
+                <div className="mb-6">
+                  <div className="w-24 h-24 mx-auto bg-gray-100 rounded-full flex items-center justify-center">
+                    <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                </div>
+                
+                {/* 标题 */}
+                <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                  {language === 'en' ? 'Coming Soon' : '即将推出'}
+                </h2>
+                
+                {/* 描述 */}
+                <p className="text-gray-600 mb-6">
+                  {language === 'en' 
+                    ? 'Copy trading feature is under development. Stay tuned for updates!' 
+                    : '跟单功能正在开发中，敬请期待！'
+                  }
+                </p>
+                
+                {/* 通知按钮 */}
+                <button className="inline-flex items-center px-6 py-3 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-5 5v-5zM10.5 9.5L8 7l3-3 2.5 2.5L16 4l-1.5 1.5z" />
+                  </svg>
+                  {language === 'en' ? 'Notify Me' : '通知我'}
+                </button>
+              </div>
+            </div>
+          ) : activeTab === 'following' && followingFilter === 'Activity' ? (
             // Activity页面内容 - H5适配的卡片布局
             <div className="space-y-3">
               {getActivityData().map((activity: ActivityRecord) => (
