@@ -3,6 +3,10 @@ import Image from 'next/image';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
+// 排序类型定义
+type SortField = 'price' | 'quantity' | 'value' | 'return';
+type SortOrder = 'none' | 'desc' | 'asc';
+
 // Mock data
 const mockUserData = {
   id: 1,
@@ -62,8 +66,52 @@ const UserDetailPage: React.FC = () => {
   const [chartType, setChartType] = useState<'total' | 'profit'>('total');
   const [timeFilter, setTimeFilter] = useState('1D');
   const [isFollowed, setIsFollowed] = useState(mockUserData.isFollowed);
+  
+  // 排序状态
+  const [sortField, setSortField] = useState<SortField | null>(null);
+  const [sortOrder, setSortOrder] = useState<SortOrder>('none');
 
   const chartData = generateChartData();
+
+  // 排序处理函数
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      const nextOrder = sortOrder === 'none' ? 'desc' : sortOrder === 'desc' ? 'asc' : 'none';
+      setSortOrder(nextOrder);
+      if (nextOrder === 'none') {
+        setSortField(null);
+      }
+    } else {
+      setSortField(field);
+      setSortOrder('desc');
+    }
+  };
+
+  // 排序图标组件
+  const SortIcon: React.FC<{ field: SortField }> = ({ field }) => {
+    const isActive = sortField === field;
+    const currentOrder = isActive ? sortOrder : 'none';
+    
+    return (
+      <button
+        onClick={() => handleSort(field)}
+        className="ml-2 flex flex-col items-center justify-center w-3 h-5 hover:bg-gray-100 rounded transition-colors group"
+      >
+        {/* 上三角 */}
+        <div 
+          className={`w-0 h-0 border-l-[4px] border-r-[4px] border-b-[4px] border-transparent mb-[1px] transition-colors ${
+            currentOrder === 'asc' ? 'border-b-gray-800' : 'border-b-gray-300 group-hover:border-b-gray-400'
+          }`}
+        />
+        {/* 下三角 */}
+        <div 
+          className={`w-0 h-0 border-l-[4px] border-r-[4px] border-t-[4px] border-transparent transition-colors ${
+            currentOrder === 'desc' ? 'border-t-gray-800' : 'border-t-gray-300 group-hover:border-t-gray-400'
+          }`}
+        />
+      </button>
+    );
+  };
 
   // SVG Chart Component
   const LineChart = ({ data }: { data: number[] }) => {
@@ -433,47 +481,65 @@ const UserDetailPage: React.FC = () => {
               {activeTab === 'positions' && (
                 <div className="space-y-4">
                   {/* Table Header */}
-                  <div className="grid grid-cols-5 gap-4 text-sm font-medium text-gray-500 pb-2 border-b border-gray-200">
-                    <div>Market</div>
-                    <div className="text-center">均价</div>
-                    <div className="text-center">持仓数量</div>
-                    <div className="text-center">持仓价值</div>
-                    <div className="text-center">收益率</div>
+                  <div className="mb-4">
+                    <div className="grid grid-cols-5 gap-4 px-6 py-4 text-sm font-medium text-gray-600">
+                      <div>Market</div>
+                      <div className="text-right flex items-center justify-end">
+                        均价
+                        <SortIcon field="price" />
+                      </div>
+                      <div className="text-right flex items-center justify-end">
+                        持仓数量
+                        <SortIcon field="quantity" />
+                      </div>
+                      <div className="text-right flex items-center justify-end">
+                        持仓价值
+                        <SortIcon field="value" />
+                      </div>
+                      <div className="text-right flex items-center justify-end">
+                        收益率
+                        <SortIcon field="return" />
+                      </div>
+                    </div>
                   </div>
 
                   {/* Table Rows */}
-                  {mockUserData.activities.map((activity) => (
-                    <div key={activity.id} className="grid grid-cols-5 gap-4 items-center py-3 border-b border-gray-100 last:border-b-0">
-                      <div className="flex items-center space-x-3">
-                        <div className="relative w-10 h-10 flex-shrink-0">
-                          <Image
-                            src={activity.image}
-                            alt="Market"
-                            fill
-                            className="object-cover rounded"
-                          />
-                        </div>
-                        <div className="min-w-0">
-                          <p className="text-sm font-medium text-black truncate">{activity.market}</p>
-                          <span className="inline-block px-2 py-1 text-xs font-medium text-green-700 bg-green-100 rounded-full">
-                            {activity.position}
-                          </span>
+                  <div className="space-y-3">
+                    {mockUserData.activities.map((activity) => (
+                      <div key={activity.id} className="bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors" style={{borderColor: '#F2F2F2'}}>
+                        <div className="grid grid-cols-5 gap-4 px-6 py-4">
+                          <div className="flex items-center space-x-3">
+                            <div className="relative w-10 h-10 flex-shrink-0">
+                              <Image
+                                src={activity.image}
+                                alt="Market"
+                                fill
+                                className="object-cover rounded"
+                              />
+                            </div>
+                            <div className="min-w-0">
+                              <p className="text-sm font-medium text-black truncate">{activity.market}</p>
+                              <span className="inline-block px-2 py-1 text-xs font-medium text-green-700 bg-green-100 rounded-full">
+                                {activity.position}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="text-right text-sm text-gray-900">84¢</div>
+                          <div className="text-right text-sm text-gray-900">{activity.shares}</div>
+                          <div className="text-right text-sm font-medium text-gray-900">{activity.amount}</div>
+                          <div className="text-right">
+                            <span className="text-sm font-medium text-green-600">{activity.return}</span>
+                            <button 
+                              className="ml-2 px-3 py-1 text-xs font-medium text-white rounded"
+                              style={{ backgroundColor: '#1026D2' }}
+                            >
+                              Copy Trade
+                            </button>
+                          </div>
                         </div>
                       </div>
-                      <div className="text-center text-sm text-gray-900">84¢</div>
-                      <div className="text-center text-sm text-gray-900">{activity.shares}</div>
-                      <div className="text-center text-sm text-gray-900">{activity.amount}</div>
-                      <div className="text-center">
-                        <span className="text-sm font-medium text-green-600">{activity.return}</span>
-                        <button 
-                          className="ml-2 px-3 py-1 text-xs font-medium text-white rounded"
-                          style={{ backgroundColor: '#1026D2' }}
-                        >
-                          Copy Trade
-                        </button>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               )}
 
