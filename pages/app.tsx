@@ -30,6 +30,20 @@ const AppPage: React.FC = () => {
   
   // 导航状态
   const [activeTab, setActiveTab] = useState<'smart-money' | 'following' | 'copytrade'>('smart-money');
+
+  // 处理URL参数来设置初始tab状态
+  React.useEffect(() => {
+    if (router.isReady) {
+      const { tab } = router.query;
+      if (tab === 'following') {
+        setActiveTab('following');
+      } else if (tab === 'copytrade') {
+        setActiveTab('copytrade');
+      } else {
+        setActiveTab('smart-money');
+      }
+    }
+  }, [router.isReady, router.query]);
   
   // 排序状态 - 每个tab独立的排序状态
   const [sortField, setSortField] = useState<SortField | null>(null);
