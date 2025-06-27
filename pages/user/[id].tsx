@@ -965,7 +965,7 @@ const UserDetailPage: React.FC = () => {
               </div>
 
               {/* Mobile Chart Controls */}
-              <div className="lg:hidden space-y-2 mb-2 mt-2">
+              <div className="lg:hidden space-y-2 mb-4 px-6">
                 <div className="flex items-center justify-start">
                   <div className="flex items-center space-x-1 px-2 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
                     <button 
@@ -1114,9 +1114,9 @@ const UserDetailPage: React.FC = () => {
 
                     {/* Mobile Layout */}
                     <div className="lg:hidden p-4">
-                      {/* 第一行：事件头像 + 市场信息 */}
+                      {/* 第一行：事件头像 + 市场信息 + Yes/No + Trade按钮 */}
                       <div className="flex items-center mb-3">
-                        <div className="relative w-10 h-10 flex-shrink-0 mr-3">
+                        <div className="relative w-12 h-12 flex-shrink-0 mr-3">
                           <Image
                             src={activity.image}
                             alt="Market"
@@ -1126,14 +1126,19 @@ const UserDetailPage: React.FC = () => {
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-black truncate">{activity.market}</p>
-                          <span className="inline-block px-2 py-1 text-xs font-medium text-green-700 bg-green-100 rounded-full mt-1">
-                            {activity.position}
-                          </span>
+                          <div className="flex items-center justify-between mt-1">
+                            <span className="inline-block px-2 py-1 text-xs font-medium text-green-700 bg-green-100 rounded-full">
+                              {activity.position}
+                            </span>
+                            <button className="px-3 py-1.5 rounded-lg text-xs font-medium transition-colors bg-black text-white hover:bg-gray-800">
+                              {t.trade}
+                            </button>
+                          </div>
                         </div>
                       </div>
 
                       {/* 第二行：4列数据网格 */}
-                      <div className="grid grid-cols-2 gap-2 mb-3">
+                      <div className="grid grid-cols-2 gap-2">
                         <div className="bg-gray-50 rounded p-2">
                           <div className="text-xs text-gray-500">{t.avgPrice}</div>
                           <div className="text-sm font-medium text-gray-900">{activity.price}</div>
@@ -1150,13 +1155,6 @@ const UserDetailPage: React.FC = () => {
                           <div className="text-xs text-gray-500">{t.value}</div>
                           <div className="text-sm font-medium text-gray-900">{activity.amount}</div>
                         </div>
-                      </div>
-
-                      {/* 第三行：Trade按钮 */}
-                      <div className="flex justify-end">
-                        <button className="px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-black text-white hover:bg-gray-800">
-                          {t.trade}
-                        </button>
                       </div>
                     </div>
                   </div>
