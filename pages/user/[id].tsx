@@ -965,7 +965,7 @@ const UserDetailPage: React.FC = () => {
               </div>
 
               {/* Mobile Chart Controls */}
-              <div className="lg:hidden space-y-2 mb-4 px-6">
+              <div className="lg:hidden space-y-2 mb-4" style={{paddingTop: '15px', paddingLeft: '15px', paddingRight: '15px'}}>
                 <div className="flex items-center justify-start">
                   <div className="flex items-center space-x-1 px-2 py-1 rounded-lg" style={{backgroundColor: '#F5F5F5'}}>
                     <button 
