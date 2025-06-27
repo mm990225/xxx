@@ -293,8 +293,8 @@ const UserDetailPage: React.FC = () => {
               {/* Left Column */}
               <div className="space-y-6 flex flex-col lg:col-span-3">
                 {/* Left Top: User Info */}
-                <div className="flex items-start space-x-4">
-                  <div className="relative w-16 h-16 flex-shrink-0">
+                <div className="flex items-center space-x-4">
+                  <div className="relative w-20 h-20 flex-shrink-0">
                     <Image
                       src={mockUserData.avatar}
                       alt={mockUserData.name}
@@ -302,8 +302,9 @@ const UserDetailPage: React.FC = () => {
                       className="object-cover rounded-full"
                     />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between mb-2">
+                  <div className="flex-1 min-w-0 flex flex-col justify-between h-20">
+                    {/* 第一行：姓名和心形按钮 */}
+                    <div className="flex items-center justify-between">
                       <h1 className="text-xl font-bold text-black truncate">{mockUserData.name}</h1>
                       <button
                         onClick={() => setIsFollowed(!isFollowed)}
@@ -314,12 +315,14 @@ const UserDetailPage: React.FC = () => {
                         </svg>
                       </button>
                     </div>
-                    <div className="flex items-center space-x-3 mb-3">
+                    
+                    {/* 第二行：地址和时间 */}
+                    <div className="flex items-center space-x-3">
                       <p className="text-sm text-gray-500">{mockUserData.address}</p>
                       <p className="text-sm text-gray-500">{mockUserData.joinDate}</p>
                     </div>
                     
-                    {/* Tags */}
+                    {/* 第三行：标签 */}
                     <div className="flex flex-wrap gap-2">
                       {mockUserData.tags.map((tag, index) => (
                         <span
